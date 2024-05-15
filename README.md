@@ -1,2 +1,2 @@
 # database
-cooking competition database
+kati psinetai
