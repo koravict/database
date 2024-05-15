@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS Recipes (
     tip_3 TEXT,
     servings INT,
     carbs_per_s INT, -- PARADOXH OTI EINAI INT SE THERMIDES
-    protein_per_s INT,
+    protein_per_s INT,    
     fat_per_s INT,
     calories_per_s INT, -- YPOLOGIZETAI DYNAMIKA APO YLIKA KAI POSOTHES KAI CAL/GR/ML
     
@@ -64,9 +64,8 @@ CREATE TABLE IF NOT EXISTS Episodes (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Cooks (
   cook_id INT AUTO_INCREMENT,
-  name VARCHAR(255),
-  surname VARCHAR(255),
-  phone_number INT,
+  full name VARCHAR(255),
+  phone_number VARCHAR(12),
   y_of_birth INT,
   age INT, -- YPOLOGIZETAI DYNAMIKA APO Y.O.BIRTH
   ys_of_exp INT,
