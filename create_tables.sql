@@ -1,3 +1,23 @@
+-- -----------------------------------------------------
+-- FOOD GROUPS TABLE 
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Food_Groups (
+  group_id INT AUTO_INCREMENT,
+  name VARCHAR(255),
+  description TEXT,
+
+  PRIMARY KEY (group_id)
+);
+-- -----------------------------------------------------
+-- NATIONAL CUISINES TABLE 
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS National_Cuisines (
+  cuisine_id INT AUTO_INCREMENT,
+  name VARCHAR(255),
+
+  PRIMARY KEY (cuisine_id)
+);
 
 -- -----------------------------------------------------
 -- RECIPES TABLE 
@@ -48,27 +68,18 @@ CREATE TABLE IF NOT EXISTS Cooks (
   surname VARCHAR(255),
   phone_number INT,
   y_of_birth INT,
-  age() INT, -- YPOLOGIZETAI DYNAMIKA APO Y.O.BIRTH
+  age INT, -- YPOLOGIZETAI DYNAMIKA APO Y.O.BIRTH
   ys_of_exp INT,
-  level VARCHAR(),
+  level VARCHAR(255),
  
  PRIMARY KEY (cook_id)
 );
 
--- -----------------------------------------------------
--- NATIONAL CUISINES TABLE 
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS National_Cuisines (
-  cuisine_id INT AUTO_INCREMENT,
-  name VARCHAR(255),
-
-  PRIMARY KEY (cuisine_id)
-);
 
 -- -----------------------------------------------------
 -- THEMATIC UNITS TABLE 
 -- -----------------------------------------------------
-CREATE TABLE Thematic_Units (
+CREATE TABLE IF NOT EXISTS Thematic_Units (
   unit_id INT AUTO_INCREMENT,
   name VARCHAR(255),
   description TEXT,
@@ -110,7 +121,6 @@ CREATE TABLE IF NOT EXISTS Meal_Type (
 CREATE TABLE IF NOT EXISTS Ingredients (
   ingredient_id INT AUTO_INCREMENT,
   name VARCHAR(255),
-  is_basic BOOLEAN,
   calories_per_100 INT,
   
   group_id INT NOT NULL,
@@ -119,23 +129,14 @@ CREATE TABLE IF NOT EXISTS Ingredients (
   FOREIGN KEY (group_id) REFERENCES Food_Groups (group_id)
 );
 
--- -----------------------------------------------------
--- FOOD GROUPS TABLE 
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS Food_Groups (
-  group_id INT AUTO_INCREMENT,
-  name VARCHAR(255),
-  description TEXT,
 
-  PRIMARY KEY (group_id)
-);
 
 -- -----------------------------------------------------
 -- STEPS TABLE 
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS steps (
     step_id INT AUTO_INCREMENT,
-    order INT,
+    step_order INT,
     step_instr TEXT,
 
     recipe_id INT NOT NULL,
@@ -206,7 +207,7 @@ CREATE TABLE IF NOT EXISTS Cuisines_Cooks (
     cook_id INT NOT NULL,
 
     PRIMARY KEY (cuisines_cooks_id),
-    FOREIGN KEY (cuisine_id) REFERENCES Cuisines (cuisine_id),
+    FOREIGN KEY (cuisine_id) REFERENCES National_Cuisines (cuisine_id),
     FOREIGN KEY (cook_id) REFERENCES Cooks (cook_id)
 );
 
@@ -282,7 +283,8 @@ CREATE TABLE IF NOT EXISTS Episodes_Recipes (
     ingredients_recipes_id INT AUTO_INCREMENT,
     ingredient_id INT NOT NULL,
     recipe_id INT NOT NULL,
-
+    
+    is_basic BOOLEAN,
     amount_is_int BOOLEAN,
     amount_int INT,
     amount_varchar VARCHAR(255),
