@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS Episodes (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Cooks (
   cook_id INT AUTO_INCREMENT,
-  full name VARCHAR(255),
+  fullname VARCHAR(255),
   phone_number VARCHAR(12),
   y_of_birth INT,
   age INT, -- YPOLOGIZETAI DYNAMIKA APO Y.O.BIRTH
