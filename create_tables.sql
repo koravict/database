@@ -1,3 +1,6 @@
+
+
+USE masterchef;
 -- -----------------------------------------------------
 -- FOOD GROUPS TABLE 
 -- -----------------------------------------------------
@@ -47,7 +50,7 @@ CREATE TABLE IF NOT EXISTS Recipes (
     FOREIGN KEY (group_id) REFERENCES Food_Groups (group_id),
     FOREIGN KEY (cuisine_id) REFERENCES National_Cuisines (cuisine_id),
 
-    CHECK (diffiiculty > 0 AND diffiiculty <5),
+    CHECK (diffiiculty > 0 AND diffiiculty <6),
     CHECK (servings > 0)
 
 );
@@ -63,7 +66,7 @@ CREATE TABLE IF NOT EXISTS Episodes (
     PRIMARY KEY (episode_id),
 
     CHECK (episode_year > 0 ),
-    CHECK (episode_number > 0 AND episode_year <11)
+    CHECK (episode_number > 0 AND episode_number <11)
 );
 
 -- -----------------------------------------------------
