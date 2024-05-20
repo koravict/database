@@ -1,5 +1,4 @@
 
-
 USE masterchef;
 -- -----------------------------------------------------
 -- FOOD GROUPS TABLE 
@@ -30,10 +29,10 @@ CREATE TABLE IF NOT EXISTS Recipes (
     name VARCHAR(255) NOT NULL,
     description TEXT,
     saltysweet BOOLEAN,
-    diffiiculty INT,
+    difficulty INT,
     prep_time INT DEFAULT 0,
     cook_time INT DEFAULT 0,
-    total_time INT,             -- YPOLOGIZETAI DYNAMIKA APO PREP K COOK TIME
+    total_time INT GENERATED ALWAYS AS (prep_time + cook_time) STORED, -- YPOLOGIZETAI DYNAMIKA APO PREP K COOK TIME
     tip_1 TEXT,
     tip_2 TEXT,
     tip_3 TEXT,
@@ -41,7 +40,7 @@ CREATE TABLE IF NOT EXISTS Recipes (
     carbs_per_s INT,            -- PARADOXH OTI EINAI INT SE THERMIDES
     protein_per_s INT,    
     fat_per_s INT,
-    calories_per_s INT,         -- YPOLOGIZETAI DYNAMIKA APO YLIKA KAI POSOTHES KAI CAL/GR/ML
+    cal_per_s INT, -- ME VIEW  YPOLOGIZETAI DYNAMIKA APO YLIKA KAI POSOTHES KAI CAL/GR/ML
     
     group_id INT NOT NULL,
     cuisine_id INT NOT NULL,
@@ -50,7 +49,7 @@ CREATE TABLE IF NOT EXISTS Recipes (
     FOREIGN KEY (group_id) REFERENCES Food_Groups (group_id),
     FOREIGN KEY (cuisine_id) REFERENCES National_Cuisines (cuisine_id),
 
-    CHECK (diffiiculty > 0 AND diffiiculty <6),
+    CHECK (difficulty > 0 AND difficulty <6),
     CHECK (servings > 0)
 
 );
@@ -77,7 +76,7 @@ CREATE TABLE IF NOT EXISTS Cooks (
     full_name VARCHAR(255) NOT NULL,
     phone_number VARCHAR(12),
     y_of_birth INT NOT NULL,
-    age INT,                        -- YPOLOGIZETAI DYNAMIKA APO Y.O.BIRTH
+    age INT GENERATED ALWAYS AS (2024 - y_of_birth) STORED,-- YPOLOGIZETAI DYNAMIKA APO Y.O.BIRTH
     ys_of_exp INT,
     level VARCHAR(255),
  
