@@ -1,5 +1,14 @@
 
 USE masterchef;
+
+-- =============================================================
+-- -------------------------------------------------------------
+-- --  --  --  BASIC TABLES   OF   DATABASE   --  --  --  --  --
+-- -------------------------------------------------------------
+-- =============================================================
+
+
+
 -- -----------------------------------------------------
 -- FOOD GROUPS TABLE 
 -- -----------------------------------------------------
@@ -40,7 +49,7 @@ CREATE TABLE IF NOT EXISTS Recipes (
     carbs_per_s INT,            -- PARADOXH OTI EINAI INT SE THERMIDES
     protein_per_s INT,    
     fat_per_s INT,
-    cal_per_s INT, -- ME VIEW  YPOLOGIZETAI DYNAMIKA APO YLIKA KAI POSOTHES KAI CAL/GR/ML
+    -- cal_per_s INT, -- ME VIEW  YPOLOGIZETAI DYNAMIKA APO YLIKA KAI POSOTHES KAI CAL/GR/ML
     
     group_id INT NOT NULL,
     cuisine_id INT NOT NULL,
@@ -129,17 +138,17 @@ CREATE TABLE IF NOT EXISTS Meal_Type (
 -- INGREDIENTS TABLE 
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Ingredients (
-  ingredient_id INT AUTO_INCREMENT,
-  name VARCHAR(255) NOT NULL,
-  calories_per_100 INT DEFAULT 0,
-  
-  group_id INT NOT NULL,
-  
-  PRIMARY KEY (ingredient_id),
-  FOREIGN KEY (group_id) REFERENCES Food_Groups (group_id)
+    ingredient_id INT AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    calories_per_100 INT DEFAULT 0,
+    
+    group_id INT NOT NULL,
+    
+    PRIMARY KEY (ingredient_id),
+    FOREIGN KEY (group_id) REFERENCES Food_Groups (group_id),
+
+    CHECK (calories_per_100 > 0)
 );
-
-
 
 -- -----------------------------------------------------
 -- STEPS TABLE 
@@ -295,14 +304,13 @@ CREATE TABLE IF NOT EXISTS Meal_Recipes (
 -- -----------------------------------------------------
 -- INGREDIENTS <-> RECIPES TABLE 
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS Episodes_Recipes (
+CREATE TABLE IF NOT EXISTS Ingredients_Recipes (
     ingredients_recipes_id INT AUTO_INCREMENT,
     ingredient_id INT NOT NULL,
     recipe_id INT NOT NULL,
     
     is_basic BOOLEAN,
-    amount_is_int BOOLEAN,
-    amount_int INT DEFAULT 100,
+    amount_int INT DEFAULT 0,
     amount_varchar VARCHAR(255),
 
     PRIMARY KEY (ingredients_recipes_id),
@@ -311,3 +319,39 @@ CREATE TABLE IF NOT EXISTS Episodes_Recipes (
 
     CHECK (amount_int >= 0)
 );
+
+
+-- =============================================================
+-- -------------------------------------------------------------
+-- -- -- --  --  --  -- --   INDEXES   --  -- --  --  --  --  --
+-- -------------------------------------------------------------
+-- =============================================================
+
+/*
+CREATE UNIQUE INDEX idx_phone_numbers ON phone_number (organization_id, p_number);
+
+CREATE UNIQUE INDEX idx_researcher_name ON researcher (first_name, last_name);
+
+CREATE UNIQUE INDEX idx_organization_name ON org (organization_name);
+
+CREATE UNIQUE INDEX idx_project_title ON project (title);
+
+CREATE UNIQUE INDEX idx_scientific_field_name ON scientific_field (scientific_field_name);
+*/
+
+-- =============================================================
+-- -------------------------------------------------------------
+-- -- -- --  --  --  -- --    VIEWS    --  -- --  --  --  --  --
+-- -------------------------------------------------------------
+-- =============================================================
+
+--@block
+CREATE VIEW Calories_per_Serving AS
+SELECT  r.recipe_id, r.name AS 'recipe', r.servings,
+        i.ingredient_id, i.name AS 'ingredient', i.calories_per_100,
+        ir.amount_int,
+        SUM(ir.amount_int * i.calories_per_100 / 100) / r.servings AS cal_per_serving
+FROM Recipes r
+INNER JOIN Ingredients_Recipes ir ON r.recipe_id = ir.recipe_id
+INNER JOIN Ingredients i ON i.ingredient_id = ir.ingredient_id
+GROUP BY r.recipe_id;
