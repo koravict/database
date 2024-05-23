@@ -10,9 +10,8 @@
             "port": 3306,
             "driver": "MySQL",
             "name": "masterchef_connection",
-            "database": "masterchef_db",
-            "username": "katerina",
-            "password": "password"
+            "database": "masterchef",
+            "username": "katerina"
         }
     ]
 }
