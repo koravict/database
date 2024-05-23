@@ -53,10 +53,12 @@ CREATE TABLE IF NOT EXISTS Recipes (
     
     group_id INT DEFAULT 1,
     cuisine_id INT DEFAULT 1,
+    cook_id INT DEFAULT 1,
 
     PRIMARY KEY (recipe_id),
     FOREIGN KEY (group_id) REFERENCES Food_Groups (group_id),
     FOREIGN KEY (cuisine_id) REFERENCES National_Cuisines (cuisine_id),
+    FOREIGN KEY (cook_id) REFERENCES Cooks (cook_id),
 
     CHECK (difficulty > 0 AND difficulty <6),
     CHECK (servings > 0)
