@@ -7,6 +7,23 @@ USE masterchef;
 -- -------------------------------------------------------------
 -- =============================================================
 
+-- -----------------------------------------------------
+-- COOKS TABLE 
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Cooks (
+    cook_id INT AUTO_INCREMENT,
+    full_name VARCHAR(255) NOT NULL,
+    phone_number VARCHAR(12),
+    y_of_birth INT NOT NULL,
+    age INT GENERATED ALWAYS AS (2024 - y_of_birth) STORED,-- YPOLOGIZETAI DYNAMIKA APO Y.O.BIRTH
+    ys_of_exp INT,
+    level VARCHAR(255),
+ 
+    PRIMARY KEY (cook_id),
+
+    CHECK (ys_of_exp < age ),
+    CHECK (level IN 
+    ('αρχιμάγειρας (σεφ)', 'A΄ μάγειρας', 'Β΄ μάγειρας', 'Γ΄ μάγειρας', 'βοηθός αρχιμάγειρα')));
 
 
 -- -----------------------------------------------------
@@ -51,14 +68,15 @@ CREATE TABLE IF NOT EXISTS Recipes (
     fat_per_s INT,
     -- cal_per_s INT, -- ME VIEW  YPOLOGIZETAI DYNAMIKA APO YLIKA KAI POSOTHES KAI CAL/GR/ML
     
-    group_id INT DEFAULT 1,
+    group_id INT DEFAULT 1,    -- -- PREPEI NA GINEI  NOT NULL K NA PAIRNEI TIMES
     cuisine_id INT DEFAULT 1,
-    cook_id INT DEFAULT 1,
+    owner_id INT DEFAULT 1,
 
     PRIMARY KEY (recipe_id),
     FOREIGN KEY (group_id) REFERENCES Food_Groups (group_id),
     FOREIGN KEY (cuisine_id) REFERENCES National_Cuisines (cuisine_id),
-    FOREIGN KEY (cook_id) REFERENCES Cooks (cook_id),
+    FOREIGN KEY (owner_id) REFERENCES Cooks (cook_id),
+
 
     CHECK (difficulty > 0 AND difficulty <6),
     CHECK (servings > 0)
@@ -78,24 +96,6 @@ CREATE TABLE IF NOT EXISTS Episodes (
     CHECK (episode_year > 0 ),
     CHECK (episode_number > 0 AND episode_number <11)
 );
-
--- -----------------------------------------------------
--- COOKS TABLE 
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS Cooks (
-    cook_id INT AUTO_INCREMENT,
-    full_name VARCHAR(255) NOT NULL,
-    phone_number VARCHAR(12),
-    y_of_birth INT NOT NULL,
-    age INT GENERATED ALWAYS AS (2024 - y_of_birth) STORED,-- YPOLOGIZETAI DYNAMIKA APO Y.O.BIRTH
-    ys_of_exp INT,
-    level VARCHAR(255),
- 
-    PRIMARY KEY (cook_id),
-
-    CHECK (ys_of_exp < age ),
-    CHECK (level IN ('αρχιμάγειρας (σεφ)', 'A΄ μάγειρας', 'Β΄ μάγειρας', 'Γ΄ μάγειρας', 'βοηθός αρχιμάγειρα')));
-
 
 -- -----------------------------------------------------
 -- THEMATIC UNITS TABLE 
@@ -201,7 +201,8 @@ CREATE TABLE IF NOT EXISTS Cooks_Episodes (
     score1 INT DEFAULT 1,
     score2 INT DEFAULT 1,
     score3 INT DEFAULT 1,
-    total_score INT,            -- ypologizetai dynamika apo score 1, 2, 3
+    total_score INT GENERATED ALWAYS AS (score1 + score2 + score3) STORED
+        -- ypologizetai dynamika apo score 1, 2, 3
 
     PRIMARY KEY (cooks_episodes_id),
     FOREIGN KEY (cook_id) REFERENCES Cooks (cook_id),
