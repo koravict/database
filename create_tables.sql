@@ -168,6 +168,33 @@ CREATE TABLE IF NOT EXISTS steps (
     CHECK (step_order > 0)
 );
 
+-- -----------------------------------------------------
+-- ASIGNMENTS TABLE
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Asignments (
+    asignment_id INT AUTO_INCREMENT,
+    episode_id INT NOT NULL,
+    cook_id INT NOT NULL,
+    recipe_id INT NOT NULL,
+
+    is_judge BOOLEAN,
+    score1 INT DEFAULT 1,
+    score2 INT DEFAULT 1,
+    score3 INT DEFAULT 1,
+    total_score INT GENERATED ALWAYS AS (score1 + score2 + score3) STORED,
+        -- ypologizetai dynamika apo score 1, 2, 3
+
+    PRIMARY KEY (asignment_id),
+    FOREIGN KEY (episode_id) REFERENCES Episodes (episode_id),
+    FOREIGN KEY (cook_id) REFERENCES Cooks (cook_id),
+    FOREIGN KEY (recipe_id) REFERENCES Recipes (recipe_id),
+
+
+    CHECK (score1 > 0 AND score1 < 6),
+    CHECK (score2 > 0 AND score2 < 6),
+    CHECK (score3 > 0 AND score3 < 6)
+);
+
 
 -- =============================================================
 -- -------------------------------------------------------------
@@ -189,29 +216,6 @@ CREATE TABLE IF NOT EXISTS Episodes_Recipes (
     FOREIGN KEY (episode_id) REFERENCES Episodes (episode_id)
 );
 
--- -----------------------------------------------------
--- COOKS <-> EPISODES TABLE 
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS Cooks_Episodes (
-    cooks_episodes_id INT AUTO_INCREMENT,
-    cook_id INT NOT NULL,
-    episode_id INT NOT NULL,
-
-    is_judge BOOLEAN,
-    score1 INT DEFAULT 1,
-    score2 INT DEFAULT 1,
-    score3 INT DEFAULT 1,
-    total_score INT GENERATED ALWAYS AS (score1 + score2 + score3) STORED
-        -- ypologizetai dynamika apo score 1, 2, 3
-
-    PRIMARY KEY (cooks_episodes_id),
-    FOREIGN KEY (cook_id) REFERENCES Cooks (cook_id),
-    FOREIGN KEY (episode_id) REFERENCES Episodes (episode_id),
-
-    CHECK (score1 > 0 AND score1 < 6),
-    CHECK (score2 > 0 AND score2 < 6),
-    CHECK (score3 > 0 AND score3 < 6)
-);
 
 -- -----------------------------------------------------
 -- NATIONAL CUISINES <-> EPISODES TABLE 
@@ -239,6 +243,8 @@ CREATE TABLE IF NOT EXISTS Cuisines_Cooks (
     FOREIGN KEY (cook_id) REFERENCES Cooks (cook_id)
 );
 
+
+/*
 -- -----------------------------------------------------
 -- COOKS <-> RECIPES TABLE 
 -- -----------------------------------------------------
@@ -251,6 +257,7 @@ CREATE TABLE IF NOT EXISTS Cooks_Recipes (
     FOREIGN KEY (recipe_id) REFERENCES Recipes (recipe_id),
     FOREIGN KEY (cook_id) REFERENCES Cooks (cook_id)
 );
+*/
 
 -- -----------------------------------------------------
 -- THEMATIC UNITS <-> RECIPES TABLE 
