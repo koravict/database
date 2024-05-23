@@ -346,11 +346,10 @@ CREATE UNIQUE INDEX idx_scientific_field_name ON scientific_field (scientific_fi
 -- =============================================================
 
 --@block
-CREATE VIEW Calories_per_Serving AS
-SELECT  r.recipe_id, r.name AS 'recipe', r.servings,
-        i.ingredient_id, i.name AS 'ingredient', i.calories_per_100,
-        ir.amount_int,
-        SUM(ir.amount_int * i.calories_per_100 / 100) / r.servings AS cal_per_serving
+CREATE VIEW Calories AS
+SELECT  r.recipe_id, r.name AS recipe, r.servings, 
+        ROUND (SUM(ir.amount_int * i.calories_per_100 / 100) / r.servings , 0) AS cal_per_serving,
+        COUNT (ir.ingredient_id) AS num_of_ingredients
 FROM Recipes r
 INNER JOIN Ingredients_Recipes ir ON r.recipe_id = ir.recipe_id
 INNER JOIN Ingredients i ON i.ingredient_id = ir.ingredient_id
