@@ -51,8 +51,8 @@ CREATE TABLE IF NOT EXISTS Recipes (
     fat_per_s INT,
     -- cal_per_s INT, -- ME VIEW  YPOLOGIZETAI DYNAMIKA APO YLIKA KAI POSOTHES KAI CAL/GR/ML
     
-    group_id INT NOT NULL,
-    cuisine_id INT NOT NULL,
+    group_id INT DEFAULT 1,
+    cuisine_id INT DEFAULT 1,
 
     PRIMARY KEY (recipe_id),
     FOREIGN KEY (group_id) REFERENCES Food_Groups (group_id),
@@ -147,7 +147,7 @@ CREATE TABLE IF NOT EXISTS Ingredients (
     PRIMARY KEY (ingredient_id),
     FOREIGN KEY (group_id) REFERENCES Food_Groups (group_id),
 
-    CHECK (calories_per_100 > 0)
+    CHECK (calories_per_100 >= 0)
 );
 
 -- -----------------------------------------------------
