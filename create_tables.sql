@@ -1,5 +1,4 @@
-
-USE masterchef;
+USE masterchef;  
 
 -- =============================================================
 -- -------------------------------------------------------------
@@ -68,9 +67,9 @@ CREATE TABLE IF NOT EXISTS Recipes (
     fat_per_s INT,
     -- cal_per_s INT, -- ME VIEW  YPOLOGIZETAI DYNAMIKA APO YLIKA KAI POSOTHES KAI CAL/GR/ML
     
-    group_id INT NOT NULL,    -- -- PREPEI NA GINEI  NOT NULL K NA PAIRNEI TIMES
-    cuisine_id INT NOT NULL,
-    owner_id INT NOT NULL,
+    group_id INT DEFAULT 1,    -- -- PREPEI NA GINEI  NOT NULL K NA PAIRNEI TIMES
+    cuisine_id INT DEFAULT 1,
+    owner_id INT DEFAULT 1,
 
     PRIMARY KEY (recipe_id),
     FOREIGN KEY (group_id) REFERENCES Food_Groups (group_id),
@@ -169,66 +168,32 @@ CREATE TABLE IF NOT EXISTS steps (
 );
 
 -- -----------------------------------------------------
--- ASSIGNMENTS TABLE
+-- ASIGNMENTS TABLE
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS Assignments (
-    assignment_id INT AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS Asignments (
+    asignment_id INT AUTO_INCREMENT,
     episode_id INT NOT NULL,
     cuisine_id INT NOT NULL,
     cook_id INT NOT NULL,
     recipe_id INT NOT NULL,
 
-/*
     score1 INT DEFAULT 1,
     score2 INT DEFAULT 1,
     score3 INT DEFAULT 1,
     total_score INT GENERATED ALWAYS AS (score1 + score2 + score3) STORED,
         -- ypologizetai dynamika apo score 1, 2, 3
-*/
 
-    PRIMARY KEY (assignment_id),
+    PRIMARY KEY (asignment_id),
     FOREIGN KEY (episode_id) REFERENCES Episodes (episode_id),
     FOREIGN KEY (cuisine_id) REFERENCES National_Cuisines (cuisine_id),
     FOREIGN KEY (cook_id) REFERENCES Cooks (cook_id),
-    FOREIGN KEY (recipe_id) REFERENCES Recipes (recipe_id)
+    FOREIGN KEY (recipe_id) REFERENCES Recipes (recipe_id),
 
-/*
+
     CHECK (score1 > 0 AND score1 < 6),
     CHECK (score2 > 0 AND score2 < 6),
     CHECK (score3 > 0 AND score3 < 6)
-*/
-
 );
-
--- -----------------------------------------------------
--- JUDGE IN EPISODE
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS Judge (
-    episode_id INT NOT NULL,
-    judge_id INT NOT NULL,
-
-    UNIQUE (episode_id),
-    FOREIGN KEY (episode_id) REFERENCES Episodes (episode_id),
-    FOREIGN KEY (judge_id) REFERENCES Cooks (cook_id)
-);
-
-
--- -----------------------------------------------------
--- SCORE OF ASSIGNMENT BY JUDGE
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS Score (
-    score_id INT AUTO_INCREMENT,
-    assignment_id INT NOT NULL,
-    judge_id INT NOT NULL,
-    score INT NOT NULL,
-
-    PRIMARY KEY (score_id),
-    FOREIGN KEY (assignment_id) REFERENCES Assignments (assignment_id),
-    FOREIGN KEY (judge_id) REFERENCES Cooks (cook_id),
-
-    CHECK (score >= 1 AND score <= 5)
-);
-
 
 
 -- =============================================================
@@ -368,6 +333,22 @@ CREATE TABLE IF NOT EXISTS Ingredients_Recipes (
     CHECK (amount_int >= 0)
 );
 
+-- -----------------------------------------------------
+-- JUDGES OF EPISODE
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Judges (
+    episode_id INT NOT NULL,
+    judge1 INT NOT NULL,
+    judge2 INT NOT NULL,
+    judge3 INT NOT NULL,
+
+    UNIQUE (episode_id),
+    FOREIGN KEY (episode_id) REFERENCES Episodes (episode_id),
+    FOREIGN KEY (judge1) REFERENCES Cooks (cook_id),
+    FOREIGN KEY (judge2) REFERENCES Cooks (cook_id),
+    FOREIGN KEY (judge2) REFERENCES Cooks (cook_id)
+);
+
 
 -- =============================================================
 -- -------------------------------------------------------------
@@ -401,3 +382,18 @@ FROM Recipes r
 INNER JOIN Ingredients_Recipes ir ON r.recipe_id = ir.recipe_id
 INNER JOIN Ingredients i ON i.ingredient_id = ir.ingredient_id
 GROUP BY r.recipe_id;
+
+
+-- Views for a user that is also a cook --
+-- ---------------------------------------
+
+CREATE VIEW Cook_Recipes AS
+SELECT r.*
+FROM Recipes r
+JOIN Cooks c ON r.owner_id = c.cook_id
+WHERE c.cook_id = 'example_user_cook_id';
+
+CREATE VIEW Cook_Personal_Info AS
+SELECT c.cook_id,c.full_name,c.phone_number,c.y_of_birth,c.age,c.ys_of_exp,c.level
+FROM Cooks c
+WHERE c.cook_id = 'example_user_cook_id';
