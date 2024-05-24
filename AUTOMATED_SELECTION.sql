@@ -1,66 +1,91 @@
 
+
 -- =============================================================
 -- -------------------------------------------------------------
 -- --  --  -- QUERIES FOR AUTOMATED SELECTION --  --  --  --  --
 -- -------------------------------------------------------------
 -- =============================================================
 
+SET @ep = 1;
+-- CALL Generate_Episode(@ep)
 
---@block --------------------------------------------------------
+-- --------------------------------------------------------------
 -- ELIGIBLE CUISINES FOR EPISODE --------------------------------
+DROP PROCEDURE IF EXISTS Generate_Episode;
 
--- select all national cuisines
-SELECT cuisine_id FROM national_cuisines
+CREATE PROCEDURE Generate_Episode(IN ep INT, OUT nc INT) BEGIN
+BEGIN
+    -- into nc we'll store the id of cuisine selected
+    DECLARE nc INT;
 
--- that are not in this episode already
-WHERE cuisine_id NOT IN (
-    SELECT cuisine_id FROM assignments
-    WHERE episode_id = 1 /* E */ -- python
-    )
+    -- select all national cuisines
+    SELECT cuisine_id INTO nc FROM national_cuisines
 
--- and are not in all 3 last episodes either
-AND cuisine_id NOT IN (
-    SELECT cuisine_id FROM Assignments
-    WHERE episode_id =3 /* E-1 */ -- python
-    INTERSECT
-    SELECT cuisine_id FROM Assignments
-    WHERE episode_id =2 /* E-2 */ -- python
-    INTERSECT
-    SELECT cuisine_id FROM Assignments
-    WHERE episode_id =1 /* E-3 */ -- python
-    );
+    -- that are not in this episode already
+    WHERE cuisine_id NOT IN (
+        SELECT cuisine_id FROM assignments
+        WHERE episode_id = ep
+        )
 
--- PYTHON, SELECT ONE CUISINE OF THE ABOVE RANDIOMLY = NC
+    -- and are not in all 3 last episodes either
+    AND cuisine_id NOT IN (
+        SELECT cuisine_id FROM Assignments
+        WHERE episode_id = ep-1
+        INTERSECT
+        SELECT cuisine_id FROM Assignments
+        WHERE episode_id = ep-2
+        INTERSECT
+        SELECT cuisine_id FROM Assignments
+        WHERE episode_id = ep-3
+        )
 
---@block --------------------------------------------------------
+    -- from all the eligible cuisines, chose 1 randomly
+    ORDER BY RAND() LIMIT 1;
+
+    -- CALL Select_Cook();
+    END;
+END;
+
+--@block
+CALL Generate_Episode(@ep, @nc);
+--@block
+SELECT @nc;
+
+--@block
+
+-- --------------------------------------------------------------
 -- ELIGIBLE COOKS FOR CUISINE/EPISODE ---------------------------
 
+-- SET @ck = (
+
 -- select all cooks, from the above chosen national cuisine 
-SELECT c.cook_id -- , nc.cuisine_id
+SELECT c.cook_id, nc.cuisine_id
 FROM cooks c
 JOIN cuisines_cooks cc ON c.cook_id = cc.cook_id
 JOIN national_cuisines nc ON nc.cuisine_id = cc.cuisine_id
-WHERE nc.cuisine_id = 1 /* NC */  -- python
+WHERE nc.cuisine_id = @nc
 
 -- that are not in this episode already
 AND c.cook_id NOT IN (
     SELECT a.cook_id FROM assignments a
-    WHERE episode_id = 1 /* E */ -- python
+    WHERE episode_id = @ep
     )
 
 -- and are not in all 3 last episodes either
 AND c.cook_id NOT IN (
     SELECT a.cook_id FROM Assignments a
-    WHERE episode_id =3 /* E-1 */ -- python
+    WHERE episode_id = @ep-1
     INTERSECT
     SELECT a.cook_id FROM Assignments a
-    WHERE episode_id =2 /* E-2 */ -- python
+    WHERE episode_id = @ep-2
     INTERSECT
     SELECT a.cook_id FROM Assignments a
-    WHERE episode_id =1 /* E-3 */ -- python
-    );
+    WHERE episode_id = @ep-3
+    )
 
--- PYTHON, SELECT ONE COOK OF THE ABOVE RANDIOMLY = C
+-- from all the eligible cooks, chose 1 randomly
+-- ORDER BY RAND() LIMIT 1
+-- );
 
 
 --@block --------------------------------------------------------
@@ -94,7 +119,8 @@ AND c.cook_id NOT IN (
 -- PYTHON, SELECT ONE COOK OF THE ABOVE RANDIOMLY = C
 
 
--- INSERT episode_id, cuisine_id, cook_id, recipe_id in ASSIGNMENT
+-- INSERT INTO assignments (episode_id, cuisine_id, cook_id, recipe_id)
+-- values (@ep, @nc, @ck, @re) 
 -- DO THE ABOVE X10 PER EPISODE
 
 
