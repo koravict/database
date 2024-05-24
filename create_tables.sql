@@ -202,19 +202,6 @@ CREATE TABLE IF NOT EXISTS Assignments (
 );
 
 -- -----------------------------------------------------
--- JUDGE IN EPISODE
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS Judge (
-    episode_id INT NOT NULL,
-    judge_id INT NOT NULL,
-
-    UNIQUE (episode_id),
-    FOREIGN KEY (episode_id) REFERENCES Episodes (episode_id),
-    FOREIGN KEY (judge_id) REFERENCES Cooks (cook_id)
-);
-
-
--- -----------------------------------------------------
 -- SCORE OF ASSIGNMENT BY JUDGE
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Score (
