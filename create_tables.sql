@@ -174,10 +174,10 @@ CREATE TABLE IF NOT EXISTS steps (
 CREATE TABLE IF NOT EXISTS Asignments (
     asignment_id INT AUTO_INCREMENT,
     episode_id INT NOT NULL,
+    cuisine_id INT NOT NULL,
     cook_id INT NOT NULL,
     recipe_id INT NOT NULL,
 
-    is_judge BOOLEAN,
     score1 INT DEFAULT 1,
     score2 INT DEFAULT 1,
     score3 INT DEFAULT 1,
@@ -186,6 +186,7 @@ CREATE TABLE IF NOT EXISTS Asignments (
 
     PRIMARY KEY (asignment_id),
     FOREIGN KEY (episode_id) REFERENCES Episodes (episode_id),
+    FOREIGN KEY (cuisine_id) REFERENCES National_Cuisines (cuisine_id),
     FOREIGN KEY (cook_id) REFERENCES Cooks (cook_id),
     FOREIGN KEY (recipe_id) REFERENCES Recipes (recipe_id),
 
@@ -202,7 +203,7 @@ CREATE TABLE IF NOT EXISTS Asignments (
 -- -------------------------------------------------------------
 -- =============================================================
 
-
+/*
 -- -----------------------------------------------------
 -- EPISODES <-> RECIPES TABLE 
 -- -----------------------------------------------------
@@ -215,8 +216,9 @@ CREATE TABLE IF NOT EXISTS Episodes_Recipes (
     FOREIGN KEY (recipe_id) REFERENCES Recipes (recipe_id),
     FOREIGN KEY (episode_id) REFERENCES Episodes (episode_id)
 );
+*/
 
-
+/*
 -- -----------------------------------------------------
 -- NATIONAL CUISINES <-> EPISODES TABLE 
 -- -----------------------------------------------------
@@ -229,9 +231,11 @@ CREATE TABLE IF NOT EXISTS Cuisines_Episodes (
     FOREIGN KEY (cuisine_id) REFERENCES National_Cuisines (cuisine_id),
     FOREIGN KEY (episode_id) REFERENCES Episodes (episode_id)
 );
+*/
+
 
 -- -----------------------------------------------------
--- NATIONAL CUISINES <-> COOKS TABLE 
+-- COOK SPECIALIZES IN NATION CUISINE TABLE 
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Cuisines_Cooks (
     cuisines_cooks_id INT AUTO_INCREMENT,
@@ -244,9 +248,9 @@ CREATE TABLE IF NOT EXISTS Cuisines_Cooks (
 );
 
 
-/*
+
 -- -----------------------------------------------------
--- COOKS <-> RECIPES TABLE 
+-- COOK KNOWS RECIPE TABLE 
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Cooks_Recipes (
     cooks_recipes_id INT AUTO_INCREMENT,
@@ -257,7 +261,7 @@ CREATE TABLE IF NOT EXISTS Cooks_Recipes (
     FOREIGN KEY (recipe_id) REFERENCES Recipes (recipe_id),
     FOREIGN KEY (cook_id) REFERENCES Cooks (cook_id)
 );
-*/
+
 
 -- -----------------------------------------------------
 -- THEMATIC UNITS <-> RECIPES TABLE 
@@ -330,6 +334,22 @@ CREATE TABLE IF NOT EXISTS Ingredients_Recipes (
     CHECK (amount_int >= 0)
 );
 
+-- -----------------------------------------------------
+-- JUDGES OF EPISODE
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Judges (
+    episode_id INT NOT NULL,
+    judge1 INT NOT NULL,
+    judge2 INT NOT NULL,
+    judge3 INT NOT NULL,
+
+    UNIQUE (episode_id),
+    FOREIGN KEY (episode_id) REFERENCES Episodes (episode_id),
+    FOREIGN KEY (judge1) REFERENCES Cooks (cook_id),
+    FOREIGN KEY (judge2) REFERENCES Cooks (cook_id),
+    FOREIGN KEY (judge2) REFERENCES Cooks (cook_id)
+);
+
 
 -- =============================================================
 -- -------------------------------------------------------------
@@ -355,7 +375,6 @@ CREATE UNIQUE INDEX idx_scientific_field_name ON scientific_field (scientific_fi
 -- -------------------------------------------------------------
 -- =============================================================
 
---@block
 CREATE VIEW Calories AS
 SELECT  r.recipe_id, r.name AS recipe, r.servings, 
         ROUND (SUM(ir.amount_int * i.calories_per_100 / 100) / r.servings , 0) AS cal_per_serving,
