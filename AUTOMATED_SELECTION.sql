@@ -40,7 +40,7 @@ SELECT c.cook_id -- , nc.cuisine_id
 FROM cooks c
 JOIN cuisines_cooks cc ON c.cook_id = cc.cook_id
 JOIN national_cuisines nc ON nc.cuisine_id = cc.cuisine_id
-WHERE nc.cuisine_id = 1 /* NC */;  -- python
+WHERE nc.cuisine_id = 1 /* NC */  -- python
 
 -- that are not in this episode already
 AND c.cook_id NOT IN (
@@ -71,7 +71,7 @@ SELECT r.recipe_id  -- , r.cuisine_id, c.cook_id
 FROM recipes r
 JOIN cooks_recipes cr ON r.recipe_id = cr.recipe_id
 JOIN cooks c ON c.cook_id = cr.cook_id
-WHERE r.cuisine_id = 1 /* X */ AND c.cook_id = 11 /* Y */;  --  =X
+WHERE r.cuisine_id = 1 /* X */ AND c.cook_id = 11 /* Y */  --  =X
 
 -- that are not in this episode already
 AND c.cook_id NOT IN (
