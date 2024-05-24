@@ -68,9 +68,9 @@ CREATE TABLE IF NOT EXISTS Recipes (
     fat_per_s INT,
     -- cal_per_s INT, -- ME VIEW  YPOLOGIZETAI DYNAMIKA APO YLIKA KAI POSOTHES KAI CAL/GR/ML
     
-    group_id INT DEFAULT 1,    -- -- PREPEI NA GINEI  NOT NULL K NA PAIRNEI TIMES
-    cuisine_id INT DEFAULT 1,
-    owner_id INT DEFAULT 1,
+    group_id INT NOT NULL,    -- -- PREPEI NA GINEI  NOT NULL K NA PAIRNEI TIMES
+    cuisine_id INT NOT NULL,
+    owner_id INT NOT NULL,
 
     PRIMARY KEY (recipe_id),
     FOREIGN KEY (group_id) REFERENCES Food_Groups (group_id),
