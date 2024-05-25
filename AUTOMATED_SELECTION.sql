@@ -7,19 +7,20 @@
 -- =============================================================
 
 SET @ep = 1;
+SET @nc = 1;
+
 -- CALL Generate_Episode(@ep)
 
--- --------------------------------------------------------------
+--@block --------------------------------------------------------------
 -- ELIGIBLE CUISINES FOR EPISODE --------------------------------
 DROP PROCEDURE IF EXISTS Generate_Episode;
 
 CREATE PROCEDURE Generate_Episode(IN ep INT, OUT nc INT) BEGIN
-BEGIN
     -- into nc we'll store the id of cuisine selected
-    DECLARE nc INT;
+DECLARE nc INT;
 
     -- select all national cuisines
-    SELECT cuisine_id INTO nc FROM national_cuisines
+SET nc = (SELECT cuisine_id FROM national_cuisines
 
     -- that are not in this episode already
     WHERE cuisine_id NOT IN (
@@ -40,16 +41,16 @@ BEGIN
         )
 
     -- from all the eligible cuisines, chose 1 randomly
-    ORDER BY RAND() LIMIT 1;
+    ORDER BY RAND() LIMIT 1
+    );
 
-    -- CALL Select_Cook();
-    END;
+    SELECT nc;
+    -- CALL Select_Cook(); */
 END;
 
 --@block
-CALL Generate_Episode(@ep, @nc);
---@block
-SELECT @nc;
+CALL Generate_Episode(@ep, @x);
+
 
 --@block
 
