@@ -137,6 +137,9 @@ DROP PROCEDURE IF EXISTS Select_Judge;
 
 CREATE PROCEDURE Select_Judge(IN ep INT, IN jj INT) BEGIN
 
+DECLARE i INT DEFAULT 9;
+DECLARE ass_id INT DEFAULT 0;
+
 -- into jj we'll store the id of judge-cook selected
 -- select all cooks
 SET jj = (SELECT c.cook_id FROM cooks c
@@ -167,6 +170,22 @@ SET jj = (SELECT c.cook_id FROM cooks c
     
     INSERT INTO Judge_Assignment (episode_id, judge_id)
     values (ep, jj);
+-- ----------------------------------------------------
+-- fill scores
+
+SET ass_id = (
+    SELECT assignment_id FROM assignments
+    ORDER BY assignment_id DESC LIMIT 1
+);
+
+
+WHILE i >= 0 DO
+    -- select 10 score for last 10 assignments  
+    INSERT INTO Score (assignment_id, judge_id, score)
+    values ( ass_id-i, jj, FLOOR(1 + (RAND() * 5))); 
+    SET i = i - 1;
+END WHILE;
+
 
 END;
 
