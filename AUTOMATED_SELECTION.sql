@@ -7,19 +7,18 @@
 -- =============================================================
 
 SET @ep = 1;
-SET @nc = 1;
+/*
+CALL Generate_Episode(@ep)
+*/
 
--- CALL Generate_Episode(@ep)
-
---@block --------------------------------------------------------------
+-- --------------------------------------------------------------
 -- ELIGIBLE CUISINES FOR EPISODE --------------------------------
 DROP PROCEDURE IF EXISTS Generate_Episode;
 
 CREATE PROCEDURE Generate_Episode(IN ep INT, OUT nc INT) BEGIN
-    -- into nc we'll store the id of cuisine selected
-DECLARE nc INT;
 
-    -- select all national cuisines
+-- into nc we'll store the id of cuisine selected
+-- select all national cuisines
 SET nc = (SELECT cuisine_id FROM national_cuisines
 
     -- that are not in this episode already
@@ -51,6 +50,8 @@ END;
 --@block
 CALL Generate_Episode(@ep, @x);
 
+--@block
+SELECT @x;
 
 --@block
 
