@@ -176,8 +176,7 @@ CREATE TABLE IF NOT EXISTS Assignments (
     episode_id INT NOT NULL,
     cuisine_id INT NOT NULL,
     cook_id INT NOT NULL,
-    assigned_judge BOOLEAN DEFAULT 0,
-    recipe_id INT NOT NULL,
+    recipe_id INT NULL,
 
 /*
     score1 INT DEFAULT 1,
@@ -199,6 +198,19 @@ CREATE TABLE IF NOT EXISTS Assignments (
     CHECK (score3 > 0 AND score3 < 6)
 */
 
+);
+
+-- -----------------------------------------------------
+-- JUDGE ASSIGNMENTS TABLE
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Judge_Assignment (
+    jj_assignment_id INT AUTO_INCREMENT,
+    episode_id INT NOT NULL,
+    judge_id INT NOT NULL,
+
+    PRIMARY KEY (jj_assignment_id),
+    FOREIGN KEY (episode_id) REFERENCES Episodes (episode_id),
+    FOREIGN KEY (judge_id) REFERENCES Cooks (cook_id)
 );
 
 -- -----------------------------------------------------
