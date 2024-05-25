@@ -18,6 +18,8 @@ CREATE TABLE IF NOT EXISTS Cooks (
     age INT GENERATED ALWAYS AS (2024 - y_of_birth) STORED,-- YPOLOGIZETAI DYNAMIKA APO Y.O.BIRTH
     ys_of_exp INT,
     level VARCHAR(255),
+    link_to_image VARCHAR(255),
+    image_description VARCHAR(255),
  
     PRIMARY KEY (cook_id),
 
@@ -33,6 +35,8 @@ CREATE TABLE IF NOT EXISTS Food_Groups (
   group_id INT AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
   description TEXT,
+  link_to_image VARCHAR(255),
+  image_description VARCHAR(255),
 
   PRIMARY KEY (group_id)
 );
@@ -43,6 +47,7 @@ CREATE TABLE IF NOT EXISTS Food_Groups (
 CREATE TABLE IF NOT EXISTS National_Cuisines (
   cuisine_id INT AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
+  link_to_image VARCHAR(255),
 
   PRIMARY KEY (cuisine_id)
 );
@@ -71,6 +76,8 @@ CREATE TABLE IF NOT EXISTS Recipes (
     group_id INT NOT NULL,    -- -- PREPEI NA GINEI  NOT NULL K NA PAIRNEI TIMES
     cuisine_id INT NOT NULL,
     owner_id INT NOT NULL,
+    link_to_image VARCHAR(255),
+    image_description VARCHAR(255),
 
     PRIMARY KEY (recipe_id),
     FOREIGN KEY (group_id) REFERENCES Food_Groups (group_id),
@@ -90,6 +97,8 @@ CREATE TABLE IF NOT EXISTS Episodes (
     episode_id INT AUTO_INCREMENT,
     episode_year INT NOT NULL,
     episode_number INT NOT NULL,
+    link_to_image VARCHAR(255),
+    image_description VARCHAR(255),
 
     PRIMARY KEY (episode_id),
 
@@ -104,6 +113,8 @@ CREATE TABLE IF NOT EXISTS Thematic_Units (
   unit_id INT AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
   description TEXT,
+  link_to_image VARCHAR(255),
+  image_description VARCHAR(255),
   
   PRIMARY KEY (unit_id)
 );
@@ -113,6 +124,8 @@ CREATE TABLE IF NOT EXISTS Thematic_Units (
 CREATE TABLE IF NOT EXISTS Tags (
   tag_id INT AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
+  link_to_image VARCHAR(255),
+  image_description VARCHAR(255),
 
   PRIMARY KEY (tag_id)
 );
@@ -123,6 +136,8 @@ CREATE TABLE IF NOT EXISTS Equipment (
     equipment_id INT AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     instructions TEXT,
+    link_to_image VARCHAR(255),
+    image_description VARCHAR(255),
 
     PRIMARY KEY (equipment_id)
 );
@@ -132,6 +147,8 @@ CREATE TABLE IF NOT EXISTS Equipment (
 CREATE TABLE IF NOT EXISTS Meal_Type (
   meal_id INT AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
+  link_to_image VARCHAR(255),
+  image_description VARCHAR(255),
   
   PRIMARY KEY (meal_id)
 );
@@ -143,6 +160,8 @@ CREATE TABLE IF NOT EXISTS Ingredients (
     ingredient_id INT AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     calories_per_100 INT DEFAULT 0,
+    link_to_image VARCHAR(255),
+    image_description VARCHAR(255),
     
     group_id INT NOT NULL,
     
@@ -159,6 +178,8 @@ CREATE TABLE IF NOT EXISTS steps (
     step_id INT AUTO_INCREMENT,
     step_order INT DEFAULT 1,
     step_instr TEXT,
+    link_to_image VARCHAR(255),
+    image_description VARCHAR(255),
 
     recipe_id INT NOT NULL,
     
@@ -177,6 +198,8 @@ CREATE TABLE IF NOT EXISTS Assignments (
     cuisine_id INT NOT NULL,
     cook_id INT NOT NULL,
     recipe_id INT NULL,
+    link_to_image VARCHAR(255),
+    image_description VARCHAR(255),
 
 /*
     score1 INT DEFAULT 1,
@@ -221,6 +244,8 @@ CREATE TABLE IF NOT EXISTS Score (
     assignment_id INT NOT NULL,
     judge_id INT NOT NULL,
     score INT NOT NULL,
+    link_to_image VARCHAR(255),
+    image_description VARCHAR(255),
 
     PRIMARY KEY (score_id),
     FOREIGN KEY (assignment_id) REFERENCES Assignments (assignment_id),
