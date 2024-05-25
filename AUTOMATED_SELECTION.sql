@@ -1,10 +1,11 @@
 
 -- -----------------------------------------------------------------
--- --  --  -- AUTOMATED SELECTION / EPISODE GENERATOR --  --  --  --
+-- --  --  --  --  -- PROCEDURES  --  --  --  --  --  --  --  --  -- 
 -- -----------------------------------------------------------------
 
--- --------------------------------------------------------------
--- ELIGIBLE CUISINES FOR EPISODE --------------------------------
+-- ===========================================================================
+-- ===========================================================================
+-- cuisine / cook / recipe procedure -----------------------------------------
 
 DROP PROCEDURE IF EXISTS Select_Cuisine;
 
@@ -120,7 +121,7 @@ SET re = (SELECT r.recipe_id  -- , r.cuisine_id, c.cook_id
     ORDER BY RAND() LIMIT 1
     );
 
-    SELECT ep, nc, ck, re;
+    -- SELECT ep, nc, ck, re;
     
     INSERT INTO assignments (episode_id, cuisine_id, cook_id, recipe_id)
     values (ep, nc, ck, re);
@@ -129,10 +130,9 @@ END;
 
 -- DO THE ABOVE X10 PER EPISODE
 
-
---@block --------------------------------------------------------
--- ELIGIBLE JUDGES FOR EPISODE ----------------------------------
-
+-- ===========================================================================
+-- ===========================================================================
+-- judges procedure ----------------------------------------------------------
 DROP PROCEDURE IF EXISTS Select_Judge;
 
 CREATE PROCEDURE Select_Judge(IN ep INT, IN jj INT) BEGIN
@@ -163,11 +163,45 @@ SET jj = (SELECT c.cook_id FROM cooks c
     ORDER BY RAND() LIMIT 1
     );
 
-    SELECT ep, jj;
+    -- SELECT ep, jj;
     
-    INSERT INTO assignments (episode_id, cook_id, assigned_judge)
-    values (ep, jj, 1);
+    INSERT INTO Judge_Assignment (episode_id, judge_id)
+    values (ep, jj);
 
 END;
 
--- DO THE ABOVE X3 PER ASSIGNMENT
+
+-- ===========================================================================
+-- ===========================================================================
+-- ===========================================================================
+-- generate episode procedure ------------------------------------------------
+
+DROP PROCEDURE IF EXISTS Generate_Next_EP;
+
+CREATE PROCEDURE Generate_Next_EP(IN ep INT, IN nc INT, IN ck INT, IN re INT, IN jj INT) BEGIN
+
+DECLARE i INT DEFAULT 0;
+
+SET ep = (SELECT episode_id FROM assignments
+    ORDER BY episode_id DESC LIMIT 1
+    );
+SET ep = COALESCE(ep, 0);
+SET ep = ep + 1;
+
+WHILE i < 10 DO
+    -- select 10 cuisines, cooks, recipes
+    CALL Select_Cuisine(ep, nc, ck, re);
+    
+    SET i = i + 1;
+END WHILE;
+
+
+SET i = 0;
+WHILE i < 3 DO
+    -- select 3 cooks-judges
+    CALL Select_Judge (ep, jj);
+    
+    SET i = i + 1;
+END WHILE;
+
+END;
