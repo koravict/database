@@ -1,7 +1,8 @@
--- after creating n connecting database with vscode
+-- first create & connect database with vscode
 -- with the help of my boi fireship
 -- (https://youtu.be/Cz3WcZLRaWc?t=300)
--- do the following
+
+-- then do the following:
 
 -- ===============================================================
 -- --  --  - SET-UP INSTRUCTIONS FOR DATABASE IN VS CODE -  --  --
