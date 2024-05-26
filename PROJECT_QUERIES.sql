@@ -138,3 +138,95 @@ JOIN rapps ON rapps.recipe_id = t1.recipe_id
 WHERE t1.tag_id < t2.tag_id
 GROUP BY tag_pair
 ORDER BY tag_pair_apps DESC LIMIT 3;
+
+--@block =============================== 
+-- =====================================
+-- 3.8 -- which episode used the most equipment --
+
+SELECT e.episode_id, e.episode_year, e.episode_number,
+COUNT(er.equipment_id) AS equipment_count
+FROM episodes e
+
+JOIN assignments a ON a.episode_id = e.episode_id
+JOIN recipes r ON r.recipe_id = a.recipe_id
+JOIN equipment_recipes er ON er.recipe_id = r.recipe_id
+
+GROUP BY e.episode_id, e.episode_year, e.episode_number
+ORDER BY equipment_count DESC;
+
+--@block ==================================
+-- ========================================
+-- 3.9 --list with mean number of grams of carbs by year
+
+SELECT e.episode_year, ROUND(AVG(r.carbs_per_s*r.servings),2) AS avg_carbs_per_year
+FROM episodes e
+
+JOIN assignments a ON a.episode_id = e.episode_id
+JOIN recipes r ON a.recipe_id = r.recipe_id
+
+GROUP BY e.episode_year
+ORDER BY episode_year;
+
+--@block =================================
+-- =======================================
+-- 3.14 --which thematic unit has the most appearances in the comp
+
+SELECT tu.name AS unit_name, COUNT(*) AS appearances
+FROM thematic_units tu
+
+JOIN units_recipes ur ON tu.unit_id = ur.unit_id
+JOIN recipes r ON ur.recipe_id = r.recipe_id 
+JOIN assignments a ON r.recipe_id = a.recipe_id
+JOIN episodes e ON a.episode_id = e.episode_id
+
+GROUP BY tu.name 
+ORDER BY appearances DESC;
+
+--@block =====================================
+-- ===========================================
+-- 3.13 -- which episode had the lowest level of chefs and judges
+CREATE TEMPORARY TABLE level_mapping (
+    level_name VARCHAR(50),
+    level_value INT
+);
+
+INSERT INTO level_mapping (level_name, level_value) VALUES
+    ('αρχιμάγειρας (σεφ)', 5),
+    ('βοηθός αρχιμάγειρα', 4),
+    ('A΄ μάγειρας', 3),
+    ('Β΄ μάγειρας', 2),
+    ('Γ΄ μάγειρας', 1);
+
+WITH combined_levels AS (
+    SELECT cook_id, level
+    FROM cooks
+    UNION ALL
+    SELECT ja.judge_id AS cook_id, j.level
+    FROM judge_assignment ja
+    JOIN cooks j ON ja.judge_id = j.cook_id
+)
+SELECT e.episode_id, e.episode_year, e.episode_number,
+       SUM(lm.level_value) AS total_level_per_episode
+FROM episodes e
+JOIN assignments a ON e.episode_id = a.episode_id
+JOIN recipes r ON a.recipe_id = r.recipe_id
+JOIN combined_levels cl ON a.cook_id = cl.cook_id OR cl.cook_id IN (
+    SELECT ja.judge_id
+    FROM judge_assignment ja
+    WHERE ja.episode_id = e.episode_id
+)
+JOIN level_mapping lm ON cl.level = lm.level_name
+GROUP BY e.episode_id, e.episode_year, e.episode_number
+ORDER BY total_level_per_episode ASC;
+
+DROP TABLE level_mapping;
+--@block ===========================
+-- =================================
+-- 3.15 find which food groups have never appeared in an episode --
+
+SELECT fg.group_id, fg.name
+FROM food_groups fg
+LEFT JOIN recipes r ON fg.group_id = r.group_id
+LEFT JOIN Assignments a ON r.recipe_id = a.recipe_id 
+WHERE a.recipe_id IS NULL
+GROUP BY fg.group_id, fg.name;
