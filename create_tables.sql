@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS National_Cuisines (
   cuisine_id INT AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
   link_to_image VARCHAR(255),
+  image_description VARCHAR(255),
 
   PRIMARY KEY (cuisine_id)
 );
