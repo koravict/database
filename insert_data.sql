@@ -250,49 +250,49 @@ values ('Πιάτα για Φοιτητές', 'Εύκολες και γρήγο�
 ('Επίσημο δείπνο', 'Συνταγές και ιδέες που θα κερδίσουν τους πιο απαιτητικούς καλεσμένους'),
 ('Leftovers', 'Φρέσκιες συνταγές για να αξιοποιηθούν τα απομεινάρια και να μην πάει τίποτα χαμένο');
 
-insert into Tags (name) 
-values ('brunch'), 
-('quick-lunch'), 
-('κρύο πιάτο'), 
-('finger-food'), 
-('ορεκτικά'),
-('μαρμελάδες'), 
-('ζύμες'), 
-('ντιπ & σάλτσες'), 
-('φρούτα'), 
-('κεφτέδες'), 
-('ψωμιά'), 
-('σαλάτες'), 
-('σάντουιτς');
+insert into Tags (name,link_to_image,image_description) 
+values ('brunch','https://www.nutritionadvance.com/wp-content/uploads/2021/10/popular-types-of-diet-1024x683.jpg', 'Διάφορα είδη φαγητού'), 
+('quick-lunch',,'https://www.nutritionadvance.com/wp-content/uploads/2021/10/popular-types-of-diet-1024x683.jpg', 'Διάφορα είδη φαγητού'), 
+('κρύο πιάτο','https://www.nutritionadvance.com/wp-content/uploads/2021/10/popular-types-of-diet-1024x683.jpg', 'Διάφορα είδη φαγητού'), 
+('finger-food','https://www.nutritionadvance.com/wp-content/uploads/2021/10/popular-types-of-diet-1024x683.jpg', 'Διάφορα είδη φαγητού'), 
+('ορεκτικά','https://www.nutritionadvance.com/wp-content/uploads/2021/10/popular-types-of-diet-1024x683.jpg', 'Διάφορα είδη φαγητού'),
+('μαρμελάδες','https://www.nutritionadvance.com/wp-content/uploads/2021/10/popular-types-of-diet-1024x683.jpg', 'Διάφορα είδη φαγητού'), 
+('ζύμες','https://www.nutritionadvance.com/wp-content/uploads/2021/10/popular-types-of-diet-1024x683.jpg', 'Διάφορα είδη φαγητού'), 
+('ντιπ & σάλτσες','https://www.nutritionadvance.com/wp-content/uploads/2021/10/popular-types-of-diet-1024x683.jpg', 'Διάφορα είδη φαγητού'), 
+('φρούτα','https://www.nutritionadvance.com/wp-content/uploads/2021/10/popular-types-of-diet-1024x683.jpg', 'Διάφορα είδη φαγητού'), 
+('κεφτέδες','https://www.nutritionadvance.com/wp-content/uploads/2021/10/popular-types-of-diet-1024x683.jpg', 'Διάφορα είδη φαγητού'), 
+('ψωμιά','https://www.nutritionadvance.com/wp-content/uploads/2021/10/popular-types-of-diet-1024x683.jpg', 'Διάφορα είδη φαγητού'), 
+('σαλάτες','https://www.nutritionadvance.com/wp-content/uploads/2021/10/popular-types-of-diet-1024x683.jpg', 'Διάφορα είδη φαγητού'), 
+('σάντουιτς','https://www.nutritionadvance.com/wp-content/uploads/2021/10/popular-types-of-diet-1024x683.jpg', 'Διάφορα είδη φαγητού');
 
-insert into Meal_Type (name)
-values ('Πρωινό'),
-('Πρόγευμα'),
-('Γεύμα'),
-('Απογευματινό'),
-('Δείπνο');
+insert into Meal_Type (name,link_to_image,image_description)
+values ('Πρωινό','https://gr.pinterest.com/pin/264656915589987954/','Εικόνα με τα είδη γευμάτων'),
+('Πρόγευμα','https://gr.pinterest.com/pin/264656915589987954/','Εικόνα με τα είδη γευμάτων'),
+('Γεύμα','https://gr.pinterest.com/pin/264656915589987954/','Εικόνα με τα είδη γευμάτων'),
+('Απογευματινό','https://gr.pinterest.com/pin/264656915589987954/','Εικόνα με τα είδη γευμάτων'),
+('Δείπνο','https://gr.pinterest.com/pin/264656915589987954/','Εικόνα με τα είδη γευμάτων');
 
- insert into Equipment (name, instructions)
- values ('μπλέντερ', 'Για να ανακατεύουμε τα υλικά σε μια ομαλή συνοχή'),
-('επεξεργαστής τροφίμων', 'Για να κόβουμε, κόβουμε σε φέτες, τρίβουμε, αλέθουμε και πολτοποιούμε τα τρόφιμα γρήγορα'),
-('σταθερός μίξερ', 'Για να ανακατεύουμε, ζυμώνουμε και χτυπάμε υλικά'),
-('χειρός μίξερ', 'Για να ανακατεύουμε και να χτυπάμε υλικά'),
-('αργός μαγειρευτής (crockpot)', 'Για να μαγειρεύουμε τα τρόφιμα αργά σε χαμηλή θερμοκρασία για αρκετές ώρες'),
-('χύτρα ταχύτητας', 'Για να μαγειρεύουμε τα τρόφιμα γρήγορα υπό υψηλή πίεση'),
-('φριτέζα αέρα', 'Για να μαγειρεύουμε τα τρόφιμα χρησιμοποιώντας κυκλοφορία ζεστού αέρα'),
-('instant pot', 'Για να λειτουργεί ως πολυλειτουργική συσκευή μαγειρέματος'),
-('φούρνος μικροκυμάτων', 'Για να ζεσταίνουμε και να μαγειρεύουμε τα τρόφιμα χρησιμοποιώντας ακτινοβολία μικροκυμάτων'),
-('φρυγανιέρα', 'Για να φρυγανίζουμε ψωμί και μπέιγκελ'),
-('φούρνος φρυγανιέρας', 'Για να φρυγανίζουμε, ψήνουμε, ψήνουμε στη σχάρα και να ξαναζεσταίνουμε τα τρόφιμα'),
-('ηλεκτρική ψησταριά', 'Για να ψήνουμε τα τρόφιμα σε εσωτερικό χώρο'),
-('ολλανδικός φούρνος', 'Για να μαγειρεύουμε μια ποικιλία πιάτων, συχνά χρησιμοποιούμενο για βραστά και ψήσιμο'),
-('συσκευή ακριβείας sous vide', 'Για να μαγειρεύουμε τα τρόφιμα σε ακριβή θερμοκρασία σε λουτρό νερού'),
-('βυθιζόμενο μπλέντερ', 'Για να ανακατεύουμε τα υλικά απευθείας στην κατσαρόλα ή το δοχείο'),
-('ηλεκτρικός βραστήρας', 'Για να βράζουμε νερό γρήγορα'),
-('μαγειρευτής ρυζιού', 'Για να μαγειρεύουμε ρύζι αυτόματα'),
-('βαφλιέρα', 'Για να μαγειρεύουμε βάφλες'),
-('μηχανή ποπκόρν', 'Για να φτιάχνουμε ποπκόρν'),
-('αποχυμωτής', 'Για να εξάγουμε χυμό από φρούτα και λαχανικά');
+ insert into Equipment (name, instructions,link_to_image,image_description)
+ values ('μπλέντερ', 'Για να ανακατεύουμε τα υλικά σε μια ομαλή συνοχή','https://www.seriouseats.com/thmb/K_YR7faVfttU6J1KLGkRH85Gkn8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__2017__06__20190610-kitchen-starter-equipment-vicky-wasik-1-33650db9ee6a4b5982dc8a18d1c6ef90.jpg','Εικόνα με εξοπλισμό μαγειρικής'),
+('επεξεργαστής τροφίμων', 'Για να κόβουμε, κόβουμε σε φέτες, τρίβουμε, αλέθουμε και πολτοποιούμε τα τρόφιμα γρήγορα','https://www.seriouseats.com/thmb/K_YR7faVfttU6J1KLGkRH85Gkn8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__2017__06__20190610-kitchen-starter-equipment-vicky-wasik-1-33650db9ee6a4b5982dc8a18d1c6ef90.jpg','Εικόνα με εξοπλισμό μαγειρικής'),
+('σταθερός μίξερ', 'Για να ανακατεύουμε, ζυμώνουμε και χτυπάμε υλικά','https://www.seriouseats.com/thmb/K_YR7faVfttU6J1KLGkRH85Gkn8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__2017__06__20190610-kitchen-starter-equipment-vicky-wasik-1-33650db9ee6a4b5982dc8a18d1c6ef90.jpg','Εικόνα με εξοπλισμό μαγειρικής'),
+('χειρός μίξερ', 'Για να ανακατεύουμε και να χτυπάμε υλικά','https://www.seriouseats.com/thmb/K_YR7faVfttU6J1KLGkRH85Gkn8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__2017__06__20190610-kitchen-starter-equipment-vicky-wasik-1-33650db9ee6a4b5982dc8a18d1c6ef90.jpg','Εικόνα με εξοπλισμό μαγειρικής'),
+('αργός μαγειρευτής (crockpot)', 'Για να μαγειρεύουμε τα τρόφιμα αργά σε χαμηλή θερμοκρασία για αρκετές ώρες','https://www.seriouseats.com/thmb/K_YR7faVfttU6J1KLGkRH85Gkn8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__2017__06__20190610-kitchen-starter-equipment-vicky-wasik-1-33650db9ee6a4b5982dc8a18d1c6ef90.jpg','Εικόνα με εξοπλισμό μαγειρικής'),
+('χύτρα ταχύτητας', 'Για να μαγειρεύουμε τα τρόφιμα γρήγορα υπό υψηλή πίεση','https://www.seriouseats.com/thmb/K_YR7faVfttU6J1KLGkRH85Gkn8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__2017__06__20190610-kitchen-starter-equipment-vicky-wasik-1-33650db9ee6a4b5982dc8a18d1c6ef90.jpg','Εικόνα με εξοπλισμό μαγειρικής'),
+('φριτέζα αέρα', 'Για να μαγειρεύουμε τα τρόφιμα χρησιμοποιώντας κυκλοφορία ζεστού αέρα','https://www.seriouseats.com/thmb/K_YR7faVfttU6J1KLGkRH85Gkn8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__2017__06__20190610-kitchen-starter-equipment-vicky-wasik-1-33650db9ee6a4b5982dc8a18d1c6ef90.jpg','Εικόνα με εξοπλισμό μαγειρικής'),
+('instant pot', 'Για να λειτουργεί ως πολυλειτουργική συσκευή μαγειρέματος','https://www.seriouseats.com/thmb/K_YR7faVfttU6J1KLGkRH85Gkn8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__2017__06__20190610-kitchen-starter-equipment-vicky-wasik-1-33650db9ee6a4b5982dc8a18d1c6ef90.jpg','Εικόνα με εξοπλισμό μαγειρικής'),
+('φούρνος μικροκυμάτων', 'Για να ζεσταίνουμε και να μαγειρεύουμε τα τρόφιμα χρησιμοποιώντας ακτινοβολία μικροκυμάτων','https://www.seriouseats.com/thmb/K_YR7faVfttU6J1KLGkRH85Gkn8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__2017__06__20190610-kitchen-starter-equipment-vicky-wasik-1-33650db9ee6a4b5982dc8a18d1c6ef90.jpg','Εικόνα με εξοπλισμό μαγειρικής'),
+('φρυγανιέρα', 'Για να φρυγανίζουμε ψωμί και μπέιγκελ','https://www.seriouseats.com/thmb/K_YR7faVfttU6J1KLGkRH85Gkn8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__2017__06__20190610-kitchen-starter-equipment-vicky-wasik-1-33650db9ee6a4b5982dc8a18d1c6ef90.jpg','Εικόνα με εξοπλισμό μαγειρικής'),
+('φούρνος φρυγανιέρας', 'Για να φρυγανίζουμε, ψήνουμε, ψήνουμε στη σχάρα και να ξαναζεσταίνουμε τα τρόφιμα','https://www.seriouseats.com/thmb/K_YR7faVfttU6J1KLGkRH85Gkn8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__2017__06__20190610-kitchen-starter-equipment-vicky-wasik-1-33650db9ee6a4b5982dc8a18d1c6ef90.jpg','Εικόνα με εξοπλισμό μαγειρικής'),
+('ηλεκτρική ψησταριά', 'Για να ψήνουμε τα τρόφιμα σε εσωτερικό χώρο','https://www.seriouseats.com/thmb/K_YR7faVfttU6J1KLGkRH85Gkn8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__2017__06__20190610-kitchen-starter-equipment-vicky-wasik-1-33650db9ee6a4b5982dc8a18d1c6ef90.jpg','Εικόνα με εξοπλισμό μαγειρικής'),
+('ολλανδικός φούρνος', 'Για να μαγειρεύουμε μια ποικιλία πιάτων, συχνά χρησιμοποιούμενο για βραστά και ψήσιμο','https://www.seriouseats.com/thmb/K_YR7faVfttU6J1KLGkRH85Gkn8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__2017__06__20190610-kitchen-starter-equipment-vicky-wasik-1-33650db9ee6a4b5982dc8a18d1c6ef90.jpg','Εικόνα με εξοπλισμό μαγειρικής'),
+('συσκευή ακριβείας sous vide', 'Για να μαγειρεύουμε τα τρόφιμα σε ακριβή θερμοκρασία σε λουτρό νερού','https://www.seriouseats.com/thmb/K_YR7faVfttU6J1KLGkRH85Gkn8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__2017__06__20190610-kitchen-starter-equipment-vicky-wasik-1-33650db9ee6a4b5982dc8a18d1c6ef90.jpg','Εικόνα με εξοπλισμό μαγειρικής'),
+('βυθιζόμενο μπλέντερ', 'Για να ανακατεύουμε τα υλικά απευθείας στην κατσαρόλα ή το δοχείο','https://www.seriouseats.com/thmb/K_YR7faVfttU6J1KLGkRH85Gkn8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__2017__06__20190610-kitchen-starter-equipment-vicky-wasik-1-33650db9ee6a4b5982dc8a18d1c6ef90.jpg','Εικόνα με εξοπλισμό μαγειρικής'),
+('ηλεκτρικός βραστήρας', 'Για να βράζουμε νερό γρήγορα','https://www.seriouseats.com/thmb/K_YR7faVfttU6J1KLGkRH85Gkn8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__2017__06__20190610-kitchen-starter-equipment-vicky-wasik-1-33650db9ee6a4b5982dc8a18d1c6ef90.jpg','Εικόνα με εξοπλισμό μαγειρικής'),
+('μαγειρευτής ρυζιού', 'Για να μαγειρεύουμε ρύζι αυτόματα','https://www.seriouseats.com/thmb/K_YR7faVfttU6J1KLGkRH85Gkn8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__2017__06__20190610-kitchen-starter-equipment-vicky-wasik-1-33650db9ee6a4b5982dc8a18d1c6ef90.jpg','Εικόνα με εξοπλισμό μαγειρικής'),
+('βαφλιέρα', 'Για να μαγειρεύουμε βάφλες','https://www.seriouseats.com/thmb/K_YR7faVfttU6J1KLGkRH85Gkn8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__2017__06__20190610-kitchen-starter-equipment-vicky-wasik-1-33650db9ee6a4b5982dc8a18d1c6ef90.jpg','Εικόνα με εξοπλισμό μαγειρικής'),
+('μηχανή ποπκόρν', 'Για να φτιάχνουμε ποπκόρν','https://www.seriouseats.com/thmb/K_YR7faVfttU6J1KLGkRH85Gkn8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__2017__06__20190610-kitchen-starter-equipment-vicky-wasik-1-33650db9ee6a4b5982dc8a18d1c6ef90.jpg','Εικόνα με εξοπλισμό μαγειρικής'),
+('αποχυμωτής', 'Για να εξάγουμε χυμό από φρούτα και λαχανικά','https://www.seriouseats.com/thmb/K_YR7faVfttU6J1KLGkRH85Gkn8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__2017__06__20190610-kitchen-starter-equipment-vicky-wasik-1-33650db9ee6a4b5982dc8a18d1c6ef90.jpg','Εικόνα με εξοπλισμό μαγειρικής');
 
 INSERT INTO Ingredients (name, calories_per_100, group_id)
 VALUES
