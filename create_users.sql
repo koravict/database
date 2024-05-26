@@ -1,9 +1,12 @@
+
 -- CREATE USERS AND GRANT ACCESS --
 -- ---------------------------------
 
 -- CREATE USERS --
 
 -- SIMPLE COOK USER --
+DROP USER 'cook_user'@'localhost';
+flush privileges;
 CREATE USER 'cook_user'@'localhost' IDENTIFIED BY 'cook_password';
 
 -- Grant SELECT permissions on CookPersonalInfo view to the user
