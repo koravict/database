@@ -111,7 +111,7 @@ values ('Παλαιστινιακή κουζίνα', 'https://en.wikipedia.org/w
 ('Ρωσική κουζίνα', 'https://en.wikipedia.org/wiki/List_of_cuisines#/media/File:Floris_Claesz._van_Dyck_001.jpg', 'Photo of russian cuisine'),
 ('Σερβική κουζίνα', 'https://en.wikipedia.org/wiki/List_of_cuisines#/media/File:Floris_Claesz._van_Dyck_001.jpg', 'Photo of serbian cuisine'),
 ('Ταϊλανδέζικη κουζίνα', 'https://en.wikipedia.org/wiki/List_of_cuisines#/media/File:Floris_Claesz._van_Dyck_001.jpg', 'Photo of thai cuisine'),
-('Τουρκική κουζίνα', 'https://en.wikipedia.org/wiki/List_of_cuisines#/media/File:Floris_Claesz._van_Dyck_001.jpg', 'Photo of turkish cuisine')
+('Τουρκική κουζίνα', 'https://en.wikipedia.org/wiki/List_of_cuisines#/media/File:Floris_Claesz._van_Dyck_001.jpg', 'Photo of turkish cuisine');
 
 
  insert into Episodes (episode_year, episode_number) 
