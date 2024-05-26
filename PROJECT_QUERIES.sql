@@ -139,6 +139,24 @@ WHERE t1.tag_id < t2.tag_id
 GROUP BY tag_pair
 ORDER BY tag_pair_apps DESC LIMIT 3;
 
+
+--@block 3.7 ============================================
+-- ======================================================
+-- 3.7 - cooks with apps <= max(apps)-5
+
+WITH capps AS (
+    SELECT c.cook_id, c.full_name, COUNT (c.cook_id) AS cook_apps
+    FROM cooks c
+    JOIN assignments a ON a.cook_id = c.cook_id
+    GROUP BY c.cook_id
+   -- ORDER BY cook_apps DESC
+)
+
+SELECT * FROM capps
+WHERE cook_apps <= (SELECT MAX(cook_apps) FROM capps) - 5
+ORDER BY cook_apps DESC;
+
+
 --@block =============================== 
 -- =====================================
 -- 3.8 -- which episode used the most equipment --
@@ -166,6 +184,153 @@ JOIN recipes r ON a.recipe_id = r.recipe_id
 
 GROUP BY e.episode_year
 ORDER BY episode_year;
+
+
+--@block 3.10 ===========================================
+-- ======================================================
+-- 3.10 - appearances of cuisines
+
+WITH ncapp AS (
+
+    SELECT (apps1 + apps2) AS appearances, cuisine1 AS cuisine, id1 AS id
+    FROM (
+        SELECT COUNT (nc.cuisine_id) AS apps1, nc.name AS cuisine1, nc.cuisine_id AS id1
+        FROM national_cuisines nc
+        JOIN assignments a ON nc.cuisine_id = a.cuisine_id
+        JOIN episodes e ON e.episode_id = a.episode_id
+        WHERE e.episode_year = 2025
+        GROUP BY nc.cuisine_id
+        HAVING apps1 > 3 ) AS t1
+    JOIN (
+        SELECT COUNT (nc.cuisine_id) AS apps2, nc.name AS cuisine2, nc.cuisine_id AS id2
+        FROM national_cuisines nc
+        JOIN assignments a ON nc.cuisine_id = a.cuisine_id
+        JOIN episodes e ON e.episode_id = a.episode_id
+        WHERE e.episode_year = 2026
+        GROUP BY nc.cuisine_id
+        HAVING apps2 > 3 ) AS t2
+    ON id1 = id2
+
+    UNION -- ---------------------------------------------------------
+
+    SELECT (apps1 + apps2) AS appearances, cuisine1 AS cuisine, id1 AS id
+    FROM (
+        SELECT COUNT (nc.cuisine_id) AS apps1, nc.name AS cuisine1, nc.cuisine_id AS id1
+        FROM national_cuisines nc
+        JOIN assignments a ON nc.cuisine_id = a.cuisine_id
+        JOIN episodes e ON e.episode_id = a.episode_id
+        WHERE e.episode_year = 2026
+        GROUP BY nc.cuisine_id
+        HAVING apps1 > 3 ) AS t1
+    JOIN (
+        SELECT COUNT (nc.cuisine_id) AS apps2, nc.name AS cuisine2, nc.cuisine_id AS id2
+        FROM national_cuisines nc
+        JOIN assignments a ON nc.cuisine_id = a.cuisine_id
+        JOIN episodes e ON e.episode_id = a.episode_id
+        WHERE e.episode_year = 2027
+        GROUP BY nc.cuisine_id
+        HAVING apps2 > 3 ) AS t2
+    ON id1 = id2
+
+    UNION -- ---------------------------------------------------------
+
+    SELECT (apps1 + apps2) AS appearances, cuisine1 AS cuisine, id1 AS id
+    FROM (
+        SELECT COUNT (nc.cuisine_id) AS apps1, nc.name AS cuisine1, nc.cuisine_id AS id1
+        FROM national_cuisines nc
+        JOIN assignments a ON nc.cuisine_id = a.cuisine_id
+        JOIN episodes e ON e.episode_id = a.episode_id
+        WHERE e.episode_year = 2027
+        GROUP BY nc.cuisine_id
+        HAVING apps1 > 3 ) AS t1
+    JOIN (
+        SELECT COUNT (nc.cuisine_id) AS apps2, nc.name AS cuisine2, nc.cuisine_id AS id2
+        FROM national_cuisines nc
+        JOIN assignments a ON nc.cuisine_id = a.cuisine_id
+        JOIN episodes e ON e.episode_id = a.episode_id
+        WHERE e.episode_year = 2028
+        GROUP BY nc.cuisine_id
+        HAVING apps2 > 3 ) AS t2
+    ON id1 = id2
+
+    UNION -- ---------------------------------------------------------
+
+    SELECT (apps1 + apps2) AS appearances, cuisine1 AS cuisine, id1 AS id
+    FROM (
+        SELECT COUNT (nc.cuisine_id) AS apps1, nc.name AS cuisine1, nc.cuisine_id AS id1
+        FROM national_cuisines nc
+        JOIN assignments a ON nc.cuisine_id = a.cuisine_id
+        JOIN episodes e ON e.episode_id = a.episode_id
+        WHERE e.episode_year = 2028
+        GROUP BY nc.cuisine_id
+        HAVING apps1 > 3 ) AS t1
+    JOIN (
+        SELECT COUNT (nc.cuisine_id) AS apps2, nc.name AS cuisine2, nc.cuisine_id AS id2
+        FROM national_cuisines nc
+        JOIN assignments a ON nc.cuisine_id = a.cuisine_id
+        JOIN episodes e ON e.episode_id = a.episode_id
+        WHERE e.episode_year = 2029
+        GROUP BY nc.cuisine_id
+        HAVING apps2 > 3 ) AS t2
+    ON id1 = id2
+
+    UNION -- ---------------------------------------------------------
+
+    SELECT (apps1 + apps2) AS appearances, cuisine1 AS cuisine, id1 AS id
+    FROM (
+        SELECT COUNT (nc.cuisine_id) AS apps1, nc.name AS cuisine1, nc.cuisine_id AS id1
+        FROM national_cuisines nc
+        JOIN assignments a ON nc.cuisine_id = a.cuisine_id
+        JOIN episodes e ON e.episode_id = a.episode_id
+        WHERE e.episode_year = 2029
+        GROUP BY nc.cuisine_id
+        HAVING apps1 > 3 ) AS t1
+    JOIN (
+        SELECT COUNT (nc.cuisine_id) AS apps2, nc.name AS cuisine2, nc.cuisine_id AS id2
+        FROM national_cuisines nc
+        JOIN assignments a ON nc.cuisine_id = a.cuisine_id
+        JOIN episodes e ON e.episode_id = a.episode_id
+        WHERE e.episode_year = 2030
+        GROUP BY nc.cuisine_id
+        HAVING apps2 > 3 ) AS t2
+    ON id1 = id2
+)
+
+SELECT DISTINCT t1.appearances AS apps, 
+t1.cuisine AS cuisine1, t2.cuisine AS cuisine2,
+t1.id AS id1, t2.id AS id2
+FROM ncapp t1
+JOIN ncapp t2 ON t1.id < t2.id
+WHERE t1.appearances = t2.appearances
+ORDER BY t1.appearances;
+
+
+--@block 3.12 ===========================================
+-- ======================================================
+-- 3.12 - most technical episode per year
+
+WITH ad AS (
+    SELECT
+    e.episode_id AS id,
+    e.episode_year AS year,
+    e.episode_number AS episode, 
+    ROUND(AVG(difficulty),1) AS difficulty
+
+    FROM recipes r
+    JOIN assignments a ON a.recipe_id = r.recipe_id
+    JOIN episodes e ON e.episode_id = a.episode_id
+    GROUP BY e.episode_id, e.episode_year
+),
+
+r_ep AS (
+    SELECT year, episode, difficulty,
+        ROW_NUMBER() OVER (PARTITION BY year ORDER BY difficulty DESC) AS ordinal
+    FROM ad
+)
+
+SELECT year, episode AS most_technical_ep, difficulty AS avg_difficulty
+FROM r_ep
+WHERE ordinal = 1;
 
 --@block =================================
 -- =======================================
