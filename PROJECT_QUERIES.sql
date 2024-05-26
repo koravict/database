@@ -399,6 +399,24 @@ JOIN ncapp t2 ON t1.id < t2.id
 WHERE t1.appearances = t2.appearances
 ORDER BY t1.appearances;
 
+--@block 3.11 ===========================================
+-- ======================================================
+-- 3.11 - top 5 score givers to cook
+
+WITH aa AS (
+    SELECT j.full_name AS judge, s.score, c.full_name AS cook,
+    CONCAT (j.full_name, ' | ', c.full_name) AS jc
+    FROM assignments a
+    JOIN score s ON s.assignment_id = a.assignment_id
+    JOIN cooks c ON c.cook_id = a.cook_id
+    JOIN cooks j ON j.cook_id = s.judge_id
+)
+
+SELECT judge, SUM(score) AS total_score_to, cook
+FROM aa
+GROUP BY jc, judge, cook
+ORDER BY total_score_to DESC LIMIT 5;
+
 
 --@block 3.12 ===========================================
 -- ======================================================
@@ -431,7 +449,7 @@ WHERE ordinal = 1;
 -- ======================================================
 -- 3.13 - which episode had the lowest level of chefs and judges
 
-DROP TABLE levels;
+DROP TABLE IF EXISTS levels;
 
 CREATE TEMPORARY TABLE levels (
     level VARCHAR(50),
