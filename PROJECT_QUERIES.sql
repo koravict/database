@@ -163,7 +163,7 @@ WHERE t1.appearances = t2.appearances
 ORDER BY t1.appearances;
 
 
---@block 3.6 ============================================
+--@block 3.6a ============================================
 -- ======================================================
 -- 3.6 - top 3 tag pairs 
 
@@ -195,6 +195,34 @@ WHERE t1.tag_id < t2.tag_id
 GROUP BY tag_pair, pair_names
 ORDER BY tag_pair_apps DESC LIMIT 3;
 
+--@block 3.6b ============================================
+-- ======================================================
+-- 3.6b - top 3 tag pairs with force index
+EXPLAIN
+WITH tt AS (
+    SELECT r.recipe_id, t.tag_id, t.name AS tag
+    FROM tags t
+    JOIN tags_recipes tr FORCE INDEX (idx_tag) ON t.tag_id = tr.tag_id
+    JOIN recipes r FORCE INDEX (idx_recipe_id) ON r.recipe_id = tr.recipe_id
+),
+rapps AS (
+    SELECT r.recipe_id,
+    COUNT(a.recipe_id) AS recipe_apps
+    FROM recipes r
+    JOIN assignments a FORCE INDEX (idx_ass_recipe_id) ON a.recipe_id = r.recipe_id
+    GROUP BY r.recipe_id
+)
+SELECT 
+    CONCAT(t1.tag_id, ' | ', t2.tag_id) AS tag_pair,
+    CONCAT(t1.tag, ' | ', t2.tag) AS pair_names,
+    SUM(rapps.recipe_apps) AS tag_pair_apps
+FROM tt t1 
+JOIN tt t2 ON t1.recipe_id = t2.recipe_id AND t1.tag_id < t2.tag_id
+JOIN rapps ON rapps.recipe_id = t1.recipe_id 
+GROUP BY tag_pair, pair_names
+ORDER BY tag_pair_apps DESC
+LIMIT 3;
+
 
 --@block 3.7 ============================================
 -- ======================================================
@@ -212,7 +240,7 @@ SELECT * FROM capps
 WHERE cook_apps <= (SELECT MAX(cook_apps) FROM capps) - 5
 ORDER BY cook_apps DESC;
 
---@block 3.8 ============================================
+--@block 3.8a ============================================
 -- ======================================================
 -- 3.8 - which episode used the most equipment
 
@@ -224,6 +252,17 @@ JOIN assignments a ON a.episode_id = e.episode_id
 JOIN recipes r ON r.recipe_id = a.recipe_id
 JOIN equipment_recipes er ON er.recipe_id = r.recipe_id
 
+GROUP BY e.episode_id, e.episode_year, e.episode_number
+ORDER BY equipment_count DESC;
+
+--@block 3.8b ============================================
+-- ======================================================
+-- 3.8b - which episode used the most equipment with force index
+EXPLAIN SELECT e.episode_id, e.episode_year, e.episode_number,
+       COUNT(er.equipment_id) AS equipment_count
+FROM episodes e
+JOIN assignments a FORCE INDEX (idx_ass_episode) ON a.episode_id = e.episode_id
+JOIN recipes r FORCE INDEX (idx_recipe_id) ON r.recipe_id = a.recipe_id
 GROUP BY e.episode_id, e.episode_year, e.episode_number
 ORDER BY equipment_count DESC;
 
