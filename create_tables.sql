@@ -400,17 +400,51 @@ CREATE TABLE IF NOT EXISTS Ingredients_Recipes (
 -- -------------------------------------------------------------
 -- =============================================================
 
-/*
-CREATE UNIQUE INDEX idx_phone_numbers ON phone_number (organization_id, p_number);
+--@block
+-- Query 3.1 --
+-- Index on cook_id
+CREATE UNIQUE INDEX idx_cook_id ON Assignment(cook_id);
 
-CREATE UNIQUE INDEX idx_researcher_name ON researcher (first_name, last_name);
+-- Index on cuisine_id
+CREATE UNIQUE INDEX idx_cuisine_id ON Assignment(cuisine_id);
 
-CREATE UNIQUE INDEX idx_organization_name ON org (organization_name);
+-- Index on assignment_id in the score table
+CREATE UNIQUE INDEX idx_assignment_id ON Score(assignment_id);
 
-CREATE UNIQUE INDEX idx_project_title ON project (title);
+-- Query 3.2 --
+-- Composite index on cuisine_id, cook_id and episode_id
+CREATE UNIQUE INDEX idx_cuisine_cook_episode ON Assignment(cuisine_id,cook_id,episode_id);
 
-CREATE UNIQUE INDEX idx_scientific_field_name ON scientific_field (scientific_field_name);
-*/
+-- Query 3.3 --
+-- index on cooks' age 
+CREATE UNIQUE INDEX idx_year ON Cooks(age);
+
+-- Query 3.4 --
+-- index on judge_id in judge assignments
+CREATE UNIQUE INDEX idx_judge ON Judge_Assignment(judge_id);
+
+-- Query 3.7 --
+CREATE UNIQUE INDEX idx_episodes_year_number ON Episodes(episode_year, episode_number);
+
+-- Query 3.9 --
+CREATE UNIQUE INDEX idx_episodes_year ON Episodes(episode_year);
+CREATE UNIQUE INDEX idx_carbs ON Recipes(carbs_per_s);
+
+-- Query 3.12 --
+CREATE UNIQUE INDEX idx_difficulty ON Recipes(difficulty);
+
+-- Query 3.13--
+CREATE UNIQUE INDEX idx_level ON Cooks(level);
+-- Query 3.14
+CREATE UNIQUE INDEX idx_units ON Units_Recipes(unit_id);
+--Query 3.15
+CREATE UNIQUE INDEX idx_food_groups ON Recipes(group_id);
+
+-- FOR FORCE INDEX IN QUERY 3.6 --
+CREATE UNIQUE INDEX idx_tag ON Tags_Recipes(tag_id);
+
+-- FOR FORCE INDEX IN QUERY 3.8
+CREATE UNIQUE INDEX idx_equipment ON Equipment(recipe_id);
 
 -- =============================================================
 -- -------------------------------------------------------------
