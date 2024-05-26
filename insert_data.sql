@@ -406,7 +406,7 @@ VALUES
 ('λάδι ελιάς', 884, 10, 'https://image.freepik.com/free-photo/olive-oil-bottle-pouring-into-bowl_1150-20492.jpg', 'Εικόνα με λάδι'),
 ('ξύδι', 18, 2, 'https://image.freepik.com/free-photo/vinegar-white-background_1150-14326.jpg', 'Εικόνα με ξύδι'),
 ('κοτόπουλο (κομμένο σε κυβάκια)', 239, 7, 'https://image.freepik.com/free-photo/food_53876-23693.jpg', 'Εικόνα με κρέας'),
-('κόκκινη πιπεριά', 31, 1, 'https://image.freepik.com/free-photo/red-bell-peppers-white-background_1150-18150.jpg', 'Εικόνα με λαχανικά')
+('κόκκινη πιπεριά', 31, 1, 'https://image.freepik.com/free-photo/red-bell-peppers-white-background_1150-18150.jpg', 'Εικόνα με λαχανικά'),
 ('κόκκινα φασόλια', 333, 5, 'https://image.freepik.com/free-photo/red-kidney-beans-white-bowl_1150-11690.jpg', 'Εικόνα με φασόλια'),
 ('κονκάσε', 132, 5, 'https://image.freepik.com/free-photo/homemade-delicious-crispy-konkase-fritters-fish-chips-isolated-white-background_1150-35244.jpg', 'Εικόνα με κονκάσε'),
 ('κονκάσε τηγανητές', 307, 5, 'https://image.freepik.com/free-photo/homemade-delicious-crispy-konkase-fritters-fish-chips-isolated-white-background_1150-35244.jpg', 'Εικόνα με κονκάσε'),
