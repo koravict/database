@@ -1,3 +1,5 @@
+   
+
 USE masterchef;
 
 -- =============================================================
@@ -47,7 +49,6 @@ CREATE TABLE IF NOT EXISTS National_Cuisines (
   cuisine_id INT AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
   link_to_image VARCHAR(255),
-  image_description VARCHAR(255),
 
   PRIMARY KEY (cuisine_id)
 );
@@ -394,6 +395,9 @@ CREATE TABLE IF NOT EXISTS Ingredients_Recipes (
 );
 
 
+--@block        
+DROP TABLE level_mapping  
+
 -- =============================================================
 -- -------------------------------------------------------------
 -- -- -- --  --  --  -- --   INDEXES   --  -- --  --  --  --  --
@@ -403,48 +407,52 @@ CREATE TABLE IF NOT EXISTS Ingredients_Recipes (
 --@block
 -- Query 3.1 --
 -- Index on cook_id
-CREATE UNIQUE INDEX idx_cook_id ON Assignments(cook_id);
+CREATE INDEX IF NOT EXISTS idx_cook_id ON Assignment(cook_id);
 
 -- Index on cuisine_id
-CREATE UNIQUE INDEX idx_cuisine_id ON Assignments(cuisine_id);
+CREATE INDEX  IF NOT EXISTS idx_cuisine_id ON Assignment(cuisine_id);
 
 -- Index on assignment_id in the score table
-CREATE UNIQUE INDEX idx_assignment_id ON Score(assignment_id);
+CREATE INDEX IF NOT EXISTS idx_assignment_id ON Score(assignment_id);
 
 -- Query 3.2 --
 -- Composite index on cuisine_id, cook_id and episode_id
-CREATE UNIQUE INDEX idx_cuisine_cook_episode ON Assignments(cuisine_id,cook_id,episode_id);
+CREATE INDEX IF NOT EXISTS idx_cuisine_cook_episode ON Assignment(cuisine_id,cook_id,episode_id);
 
 -- Query 3.3 --
 -- index on cooks' age 
-CREATE UNIQUE INDEX idx_year ON Cooks(age);
+CREATE INDEX IF NOT EXISTS idx_year ON Cooks(age);
 
 -- Query 3.4 --
 -- index on judge_id in judge assignments
-CREATE UNIQUE INDEX idx_judge ON Judge_Assignment(judge_id);
+CREATE INDEX IF NOT EXISTS idx_judge ON Judge_Assignment(judge_id);
 
 -- Query 3.7 --
-CREATE UNIQUE INDEX idx_episodes_year_number ON Episodes(episode_year, episode_number);
+CREATE INDEX IF NOT EXISTS idx_episodes_year_number ON Episodes(episode_year, episode_number);
 
 -- Query 3.9 --
-CREATE UNIQUE INDEX idx_episodes_year ON Episodes(episode_year);
-CREATE UNIQUE INDEX idx_carbs ON Recipes(carbs_per_s);
+CREATE INDEX IF NOT EXISTS idx_episodes_year ON Episodes(episode_year);
+CREATE INDEX IF NOT EXISTS idx_carbs ON Recipes(carbs_per_s);
 
 -- Query 3.12 --
-CREATE UNIQUE INDEX idx_difficulty ON Recipes(difficulty);
+CREATE INDEX IF NOT EXISTS idx_difficulty ON Recipes(difficulty);
 
 -- Query 3.13--
-CREATE UNIQUE INDEX idx_level ON Cooks(level);
+CREATE INDEX IF NOT EXISTS idx_level ON Cooks(level);
 -- Query 3.14
-CREATE UNIQUE INDEX idx_units ON Units_Recipes(unit_id);
+CREATE INDEX IF NOT EXISTS idx_units ON Units_Recipes(unit_id);
 --Query 3.15
-CREATE UNIQUE INDEX idx_food_groups ON Recipes(group_id);
-
+CREATE INDEX IF NOT EXISTS idx_food_groups ON Recipes(group_id);
+--@BLOCK 
 -- FOR FORCE INDEX IN QUERY 3.6 --
-CREATE UNIQUE INDEX idx_tag ON Tags_Recipes(tag_id);
+CREATE INDEX IF NOT EXISTS idx_tag ON Tags_Recipes(tag_id);
+CREATE INDEX IF NOT EXISTS idx_recipe_id ON recipes(recipe_id);
+CREATE INDEX IF NOT EXISTS idx_ass_recipe_id ON assignments(recipe_id);
 
 -- FOR FORCE INDEX IN QUERY 3.8
-CREATE UNIQUE INDEX idx_equipment ON Equipment(recipe_id);
+CREATE INDEX IF NOT EXISTS idx_equipment ON equipment_recipes(recipe_id);
+CREATE INDEX IF NOT EXISTS idx_ass_episode ON assignments(episode_id);
+--@BLOCK
 
 -- =============================================================
 -- -------------------------------------------------------------
