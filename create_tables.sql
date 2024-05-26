@@ -403,17 +403,17 @@ CREATE TABLE IF NOT EXISTS Ingredients_Recipes (
 --@block
 -- Query 3.1 --
 -- Index on cook_id
-CREATE UNIQUE INDEX idx_cook_id ON Assignment(cook_id);
+CREATE UNIQUE INDEX idx_cook_id ON Assignments(cook_id);
 
 -- Index on cuisine_id
-CREATE UNIQUE INDEX idx_cuisine_id ON Assignment(cuisine_id);
+CREATE UNIQUE INDEX idx_cuisine_id ON Assignments(cuisine_id);
 
 -- Index on assignment_id in the score table
 CREATE UNIQUE INDEX idx_assignment_id ON Score(assignment_id);
 
 -- Query 3.2 --
 -- Composite index on cuisine_id, cook_id and episode_id
-CREATE UNIQUE INDEX idx_cuisine_cook_episode ON Assignment(cuisine_id,cook_id,episode_id);
+CREATE UNIQUE INDEX idx_cuisine_cook_episode ON Assignments(cuisine_id,cook_id,episode_id);
 
 -- Query 3.3 --
 -- index on cooks' age 
