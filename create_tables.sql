@@ -1,5 +1,6 @@
    
 
+
 USE masterchef;
 
 -- =============================================================
@@ -450,7 +451,6 @@ CREATE INDEX IF NOT EXISTS idx_ass_recipe_id ON assignments(recipe_id);
 -- FOR FORCE INDEX IN QUERY 3.8
 CREATE INDEX IF NOT EXISTS idx_equipment ON equipment_recipes(recipe_id);
 CREATE INDEX IF NOT EXISTS idx_ass_episode ON assignments(episode_id);
---@BLOCK
 
 -- =============================================================
 -- -------------------------------------------------------------
@@ -458,6 +458,7 @@ CREATE INDEX IF NOT EXISTS idx_ass_episode ON assignments(episode_id);
 -- -------------------------------------------------------------
 -- =============================================================
 
+DROP VIEW Calories IF EXISTS;
 CREATE VIEW Calories AS
 SELECT  r.recipe_id, r.name AS recipe, r.servings, 
         ROUND (SUM(ir.amount_int * i.calories_per_100 / 100) / r.servings , 0) AS cal_per_serving,
@@ -470,12 +471,14 @@ GROUP BY r.recipe_id;
 -- Views for a user that is also a cook --
 -- ---------------------------------------
 
+DROP VIEW Cook_Recipes IF EXISTS;
 CREATE VIEW Cook_Recipes AS
 SELECT r.*
 FROM Recipes r
 JOIN Cooks c ON r.owner_id = c.cook_id
 WHERE c.cook_id = 'example_user_cook_id';
 
+DROP VIEW Cook_Personal_Info IF EXISTS;
 CREATE VIEW Cook_Personal_Info AS
 SELECT c.cook_id,c.full_name,c.phone_number,c.y_of_birth,c.age,c.ys_of_exp,c.level
 FROM Cooks c
