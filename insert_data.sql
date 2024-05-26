@@ -5,17 +5,19 @@
 -- -------------------------------------------------------------
 -- =============================================================
 
-insert into Food_Groups (name, description) 
+insert into Food_Groups (name, description,link_to_image,image_description) 
 values ('Λαχανικά',
 'Όλα τα ωμά λαχανικά, (π.χ. μαρούλι, λάχανο, καρότο, ντομάτα, αγγούρι, κρεμμύδι κ.ά.)
 Όλα τα μαγειρεμένα λαχανικά (π.χ. μπρόκολο, κουνουπίδι, κολοκυθάκια, χόρτα, παντζάρια κ.ά.)
 Τα αμυλώδη λαχανικά (π.χ. αρακάς, καλαμπόκι, κολοκύθα)
-ΔΕΝ περιλαμβάνεται η πατάτα και οι ποικιλίες της'),
+ΔΕΝ περιλαμβάνεται η πατάτα και οι ποικιλίες της', 
+'https://i.pinimg.com/originals/5c/96/a0/5c96a0c3414b41708984610fc38e456d.jpg', 'Εικόνα με τις ομάδες τροφίμων'),
 
 ('Φρούτα',
 'Όλα τα ωμά φρούτα (π.χ. πορτοκάλι, μήλο, αχλάδι, μπανάνα, ροδάκινο κ.ά.)
 Όλα τα αποξηραμένα φρούτα (π.χ. δαμάσκηνα, σταφίδες, βερίκοκα κ.ά.)
-Οι φυσικοί χυμοί φρούτων (100% χωρίς προσθήκη ζάχαρης)'),
+Οι φυσικοί χυμοί φρούτων (100% χωρίς προσθήκη ζάχαρης)',
+'https://i.pinimg.com/originals/5c/96/a0/5c96a0c3414b41708984610fc38e456d.jpg', 'Εικόνα με τις ομάδες τροφίμων'),
 
 ('Δημητριακά (ψωμί, ρύζι, ζυμαρικά) και Πατάτες',
 'Τα δημητριακά:
@@ -30,12 +32,14 @@ values ('Λαχανικά',
 Ζυμαρικά π.χ. μακαρόνια, κριθαράκι, χυλοπίτες
 Διάφορα προϊόντα δημητριακών π.χ. πλιγούρι,τραχανάς
 Δημητριακά πρωινού
-Η πατάτα και οι ποικιλίες της'),
+Η πατάτα και οι ποικιλίες της',
+'https://i.pinimg.com/originals/5c/96/a0/5c96a0c3414b41708984610fc38e456d.jpg', 'Εικόνα με τις ομάδες τροφίμων'),
 
 ('Γάλα και γαλακτοκομικά προϊόντα',
 'Το γάλα
 Τα γαλακτοκομικά προϊόντα (π.χ. γιαούρτι, τυρί, ξινόγαλο κ.ά.)
-ΔΕΝ περιλαμβάνεται το βούτυρο (συγκαταλέγεται στα λίπη και έλαια)'),
+ΔΕΝ περιλαμβάνεται το βούτυρο (συγκαταλέγεται στα λίπη και έλαια)',
+'https://i.pinimg.com/originals/5c/96/a0/5c96a0c3414b41708984610fc38e456d.jpg', 'Εικόνα με τις ομάδες τροφίμων'),
 
 ('Όσπρια',
 'Οι φακές
@@ -43,7 +47,8 @@ values ('Λαχανικά',
 Τα ρεβίθια
 Η φάβα
 Τα ξερά κουκιά
-Οι ποικιλίες όλων των παραπάνω'),
+Οι ποικιλίες όλων των παραπάνω',
+'https://i.pinimg.com/originals/5c/96/a0/5c96a0c3414b41708984610fc38e456d.jpg', 'Εικόνα με τις ομάδες τροφίμων'),
 
 ('Κόκκινο κρέας',
 'Μοσχάρι, βοδινό
@@ -51,7 +56,8 @@ values ('Λαχανικά',
 Αρνί, πρόβατο
 Κατσίκι, γίδα
 Κυνήγι: π.χ. αγριογούρουνο, ελάφι, ζαρκάδι
-Όλα τα επεξεργασμένα προϊόντα των παραπάνω'),
+Όλα τα επεξεργασμένα προϊόντα των παραπάνω',
+'https://i.pinimg.com/originals/5c/96/a0/5c96a0c3414b41708984610fc38e456d.jpg', 'Εικόνα με τις ομάδες τροφίμων'),
 
 ('Λευκό κρέας',
 'Κοτόπουλο
@@ -59,14 +65,17 @@ values ('Λαχανικά',
 Πάπια
 Κουνέλι
 Κυνήγι: π.χ. φασιανός, ορτύκι, πέρδικα
-Όλα τα επεξεργασμένα προϊόντα των παραπάνω'),
+Όλα τα επεξεργασμένα προϊόντα των παραπάνω',
+'https://i.pinimg.com/originals/5c/96/a0/5c96a0c3414b41708984610fc38e456d.jpg', 'Εικόνα με τις ομάδες τροφίμων'),
 
 ('Αυγά',
-'ολοι ξερουν τι είναι τα αυγά μπρο'),
+'ολοι ξερουν τι είναι τα αυγά μπρο',
+'https://i.pinimg.com/originals/5c/96/a0/5c96a0c3414b41708984610fc38e456d.jpg', 'Εικόνα με τις ομάδες τροφίμων'),
 
 ('Ψάρια και θαλασσινά',
 'Τα ψάρια (π.χ. σαρδέλα, μαρίδα, γόπα, γαύρος, αθερίνα, ροφός, συναγρίδα, σφυρίδα, μπακαλιάρος, γαλέος, τόνος, λαβράκι, σαργός, τσιπούρα, λυθρίνι)
-Τα θαλασσινά (μαλάκια, οστρακοειδή, οστρακόδερμα) π.χ. καλαμάρι, σουπιά, χταπόδι, γαρίδα, μύδια, στρείδια.'),
+Τα θαλασσινά (μαλάκια, οστρακοειδή, οστρακόδερμα) π.χ. καλαμάρι, σουπιά, χταπόδι, γαρίδα, μύδια, στρείδια.',
+'https://i.pinimg.com/originals/5c/96/a0/5c96a0c3414b41708984610fc38e456d.jpg', 'Εικόνα με τις ομάδες τροφίμων'),
 
 ('Προστιθέμενα λίπη και έλαια, ελιές και ξηροί καρποί',
 'Τα προστιθέμενα λίπη και έλαια:
@@ -78,30 +87,32 @@ values ('Λαχανικά',
 Οι ξηροί καρποί
 Καρύδια, αμύγδαλα, φιστίκια, φουντούκια κ.ά.
 Ηλιόσποροι, σουσάμι κ.ά.
-Προϊόντα επάλειψης που προέρχονται από τα παραπάνω (π.χ., ταχίνι)');
+Προϊόντα επάλειψης που προέρχονται από τα παραπάνω (π.χ., ταχίνι)',
+'https://i.pinimg.com/originals/5c/96/a0/5c96a0c3414b41708984610fc38e456d.jpg', 'Εικόνα με τις ομάδες τροφίμων');
 
-insert into National_Cuisines (name) 
-values ('Παλαιστινιακή κουζίνα'),
- ('Αυστριακή κουζίνα'),
- ('Βιετναμέζικη κουζίνα'),
- ('Γαλλική κουζίνα'),
- ('Γεωργιανή κουζίνα'),
- ('Ελληνική κουζίνα'),
- ('Εσθονική κουζίνα'),
- ('Ιαπωνική κουζίνα'),
- ('Κουζίνα της Ινδίας'),
- ('Ιταλική κουζίνα'),
- ('Κινέζικη κουζίνα'),
- ('Ποντιακή ελληνική κουζίνα'),
- ('Κυπριακή κουζίνα'),
- ('Λευκορωσική κουζίνα'),
- ('Μολδαβική κουζίνα'),
- ('Ουκρανική κουζίνα'),
- ('Πολωνική κουζίνα'),
- ('Ρωσική κουζίνα'),
- ('Σερβική κουζίνα'),
- ('Ταϊλανδέζικη κουζίνα'),
- ('Τουρκική κουζίνα');
+insert into National_Cuisines (name,link_to_image,image_description) 
+values ('Παλαιστινιακή κουζίνα', 'https://en.wikipedia.org/wiki/List_of_cuisines#/media/File:Floris_Claesz._van_Dyck_001.jpg', 'Photo of palestinian cuisine'),
+('Αυστριακή κουζίνα', 'https://en.wikipedia.org/wiki/List_of_cuisines#/media/File:Floris_Claesz._van_Dyck_001.jpg', 'Photo of austrian cuisine'),
+('Βιετναμέζικη κουζίνα', 'https://en.wikipedia.org/wiki/List_of_cuisines#/media/File:Floris_Claesz._van_Dyck_001.jpg', 'Photo of vietnamese cuisine'),
+('Γαλλική κουζίνα', 'https://en.wikipedia.org/wiki/List_of_cuisines#/media/File:Floris_Claesz._van_Dyck_001.jpg', 'Photo of french cuisine'),
+('Γεωργιανή κουζίνα', 'https://en.wikipedia.org/wiki/List_of_cuisines#/media/File:Floris_Claesz._van_Dyck_001.jpg', 'Photo of georgian cuisine'),
+('Ελληνική κουζίνα', 'https://en.wikipedia.org/wiki/List_of_cuisines#/media/File:Floris_Claesz._van_Dyck_001.jpg', 'Photo of greek cuisine'),
+('Εσθονική κουζίνα', 'https://en.wikipedia.org/wiki/List_of_cuisines#/media/File:Floris_Claesz._van_Dyck_001.jpg', 'Photo of estonian cuisine'),
+('Ιαπωνική κουζίνα', 'https://en.wikipedia.org/wiki/List_of_cuisines#/media/File:Floris_Claesz._van_Dyck_001.jpg', 'Photo of japanese cuisine'),
+('Κουζίνα της Ινδίας', 'https://en.wikipedia.org/wiki/List_of_cuisines#/media/File:Floris_Claesz._van_Dyck_001.jpg', 'Photo of indian cuisine'),
+('Ιταλική κουζίνα', 'https://en.wikipedia.org/wiki/List_of_cuisines#/media/File:Floris_Claesz._van_Dyck_001.jpg', 'Photo of italian cuisine'),
+('Κινέζικη κουζίνα', 'https://en.wikipedia.org/wiki/List_of_cuisines#/media/File:Floris_Claesz._van_Dyck_001.jpg', 'Photo of chinese cuisine'),
+('Ποντιακή ελληνική κουζίνα', 'https://en.wikipedia.org/wiki/List_of_cuisines#/media/File:Floris_Claesz._van_Dyck_001.jpg', 'Photo of pontic greek cuisine'),
+('Κυπριακή κουζίνα', 'https://en.wikipedia.org/wiki/List_of_cuisines#/media/File:Floris_Claesz._van_Dyck_001.jpg', 'Photo of cypriot cuisine'),
+('Λευκορωσική κουζίνα', 'https://en.wikipedia.org/wiki/List_of_cuisines#/media/File:Floris_Claesz._van_Dyck_001.jpg', 'Photo of belarusian cuisine'),
+('Μολδαβική κουζίνα', 'https://en.wikipedia.org/wiki/List_of_cuisines#/media/File:Floris_Claesz._van_Dyck_001.jpg', 'Photo of moldovan cuisine'),
+('Ουκρανική κουζίνα', 'https://en.wikipedia.org/wiki/List_of_cuisines#/media/File:Floris_Claesz._van_Dyck_001.jpg', 'Photo of ukrainian cuisine'),
+('Πολωνική κουζίνα', 'https://en.wikipedia.org/wiki/List_of_cuisines#/media/File:Floris_Claesz._van_Dyck_001.jpg', 'Photo of polish cuisine'),
+('Ρωσική κουζίνα', 'https://en.wikipedia.org/wiki/List_of_cuisines#/media/File:Floris_Claesz._van_Dyck_001.jpg', 'Photo of russian cuisine'),
+('Σερβική κουζίνα', 'https://en.wikipedia.org/wiki/List_of_cuisines#/media/File:Floris_Claesz._van_Dyck_001.jpg', 'Photo of serbian cuisine'),
+('Ταϊλανδέζικη κουζίνα', 'https://en.wikipedia.org/wiki/List_of_cuisines#/media/File:Floris_Claesz._van_Dyck_001.jpg', 'Photo of thai cuisine'),
+('Τουρκική κουζίνα', 'https://en.wikipedia.org/wiki/List_of_cuisines#/media/File:Floris_Claesz._van_Dyck_001.jpg', 'Photo of turkish cuisine')
+
 
  insert into Episodes (episode_year, episode_number) 
  values (2025, 1),
@@ -165,7 +176,7 @@ values ('Παλαιστινιακή κουζίνα'),
     (2030, 9),
     (2030, 10);
 
-INSERT INTO Cooks (full_name, phone_number, y_of_birth, ys_of_exp, level) 
+INSERT INTO Cooks (full_name, phone_number, y_of_birth, ys_of_exp, level,link_to_image,image_description) 
 VALUES ('John Doe', '123-456-7890', 1980, 10, 'αρχιμάγειρας (σεφ)', 'https://www.istockphoto.com/photo/african-american-woman-bakers-looking-at-camera-chef-baker-in-a-chef-dress-and-hat-gm1389857295-447006096', 'Chef portrait while cooking'),
 ('Jane Smith', '234-567-8901', 1982, 12, 'A΄ μάγειρας', 'https://www.istockphoto.com/photo/gourmet-chef-cooking-in-a-commercial-kitchen-gm866699668-144148073', 'Chef portrait while cooking'),
 ('Alice Johnson', '345-678-9012', 1984, 8, 'Γ΄ μάγειρας', 'https://www.istockphoto.com/photo/african-american-woman-bakers-looking-at-camera-chef-baker-in-a-chef-dress-and-hat-gm1389857295-447006096', 'Chef portrait while cooking'),
