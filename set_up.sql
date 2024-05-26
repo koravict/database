@@ -1,3 +1,4 @@
+
 -- first create & connect database with vscode
 -- with the help of my boi fireship
 -- (https://youtu.be/Cz3WcZLRaWc?t=300)
@@ -33,11 +34,9 @@ CREATE DATABASE masterchef;
 
 --@block------------------------------
 
-SET @i = 0;
-WHILE i < 50 DO
-    CALL Generate_Next_EP(@ep, @nc, @ck, @re, @jj);
-    SET i = i + 1;
-END WHILE;
+-- it calls Generate_Next_EP 50 times
+CALL Generate_50_EP(@ep, @nc, @ck, @re, @jj);
+
 
 -- -----------------------------------
 
