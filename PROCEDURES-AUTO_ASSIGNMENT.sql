@@ -196,7 +196,6 @@ END;
 -- generate episode procedure ------------------------------------------------
 
 DROP PROCEDURE IF EXISTS Generate_Next_EP;
-
 CREATE PROCEDURE Generate_Next_EP(IN ep INT, IN nc INT, IN ck INT, IN re INT, IN jj INT) BEGIN
 
 DECLARE i INT DEFAULT 0;
@@ -220,6 +219,21 @@ WHILE i < 3 DO
     -- select 3 cooks-judges
     CALL Select_Judge (ep, jj);
     
+    SET i = i + 1;
+END WHILE;
+
+END;
+
+-- ----------------------------------------------------------------------
+
+DROP PROCEDURE IF EXISTS Generate_50_EP;
+CREATE PROCEDURE Generate_50_EP(IN ep INT, IN nc INT, IN ck INT, IN re INT, IN jj INT) BEGIN
+
+DECLARE i INT DEFAULT 0;
+
+WHILE i < 50 DO
+    -- generate 50 episodes
+    CALL Generate_Next_EP(ep, nc, ck, re, jj);
     SET i = i + 1;
 END WHILE;
 
